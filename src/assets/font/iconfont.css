@@ -18,3 +18,8 @@
 .mintui-field-warning:before { content: "\e608"; }
 .mintui-success:before { content: "\e602"; }
 .mintui-field-success:before { content: "\e609"; }
+.mintui-person:before { content: "\e60a"; }
+.mintui-category:before { content: "\e60b"; }
+.mintui-shop-cart:before { content: "\e60c"; }
+.mintui-home:before { content: "\e60d"; }
+.mintui-shop-around:before { content: "\e60e"; }
