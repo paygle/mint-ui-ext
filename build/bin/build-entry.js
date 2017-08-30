@@ -7,9 +7,10 @@ var path = require('path');
 var OUTPUT_PATH = path.join(__dirname, '../../src/index.js');
 var IMPORT_TEMPLATE = 'import {{name}} from \'../packages/{{package}}\';';
 var ISNTALL_COMPONENT_TEMPLATE = '  Vue.component({{name}}.name, {{name}});';
-var MAIN_TEMPLATE = `{{include}}
+var MAIN_TEMPLATE = `
 import '../src/assets/font/iconfont.css';
 import merge from './utils/merge';
+{{include}}
 
 const version = '{{version}}';
 const install = function(Vue, config = {}) {

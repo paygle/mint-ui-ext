@@ -1,4 +1,16 @@
 
+/* 默认样式 */
+html{
+  height: 100%;
+}
+html,body{
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  min-height: 100%;
+}
+
+/* 字体样式 */
 @font-face {font-family: "mintui";
   src: url('iconfont.ttf?t=1464927413')
 }

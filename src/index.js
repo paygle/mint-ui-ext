@@ -1,3 +1,6 @@
+
+import '../src/assets/font/iconfont.css';
+import merge from './utils/merge';
 import Header from '../packages/header';
 import Button from '../packages/button';
 import Cell from '../packages/cell';
@@ -31,8 +34,6 @@ import DatetimePicker from '../packages/datetime-picker';
 import IndexList from '../packages/index-list';
 import IndexSection from '../packages/index-section';
 import PaletteButton from '../packages/palette-button';
-import '../src/assets/font/iconfont.css';
-import merge from './utils/merge';
 
 const version = '2.2.9';
 const install = function(Vue, config = {}) {
