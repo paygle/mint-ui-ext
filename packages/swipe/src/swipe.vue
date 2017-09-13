@@ -53,7 +53,7 @@
     </div>
     <div class="mint-swipe-indicators" v-show="showIndicators">
       <div class="mint-swipe-indicator"
-        v-for="(page, $index) in pages"
+        v-for="(page, $index) in pages" :key="$index"
         :class="{ 'is-active': $index === index }"></div>
     </div>
   </div>

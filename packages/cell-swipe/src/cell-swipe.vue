@@ -19,7 +19,8 @@
       ref="right">
       <a
         class="mint-cell-swipe-button"
-        v-for="btn in right"
+        v-for="(btn, idx) in right"
+        :key="idx"
         :style="btn.style"
         @click.stop="btn.handler && btn.handler(), swipeMove()"
         v-html="btn.content"></a>
@@ -30,7 +31,8 @@
       ref="left">
       <a
         class="mint-cell-swipe-button"
-        v-for="btn in left"
+        v-for="(btn,idxx) in left"
+        :key="idxx"
         :style="btn.style"
         @click.stop="btn.handler && btn.handler(), swipeMove()"
         v-html="btn.content"></a>

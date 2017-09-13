@@ -6,7 +6,7 @@
     <div class="page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
       <mt-loadmore :bottom-method="loadBottom" @bottom-status-change="handleBottomChange" :bottom-all-loaded="allLoaded" ref="loadmore">
         <ul class="page-loadmore-list">
-          <li v-for="item in list" class="page-loadmore-listitem">{{ item }}</li>
+          <li v-for="(item,idx) in list" :key="idx" class="page-loadmore-listitem">{{ item }}</li>
         </ul>
         <div slot="bottom" class="mint-loadmore-bottom">
           <span v-show="bottomStatus !== 'loading'" :class="{ 'is-rotate': bottomStatus === 'drop' }">↑</span>

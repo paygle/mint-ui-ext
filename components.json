@@ -32,5 +32,10 @@
   "datetime-picker": "./packages/datetime-picker/index.js",
   "index-list": "./packages/index-list/index.js",
   "index-section": "./packages/index-section/index.js",
-  "palette-button": "./packages/palette-button/index.js"
+  "palette-button": "./packages/palette-button/index.js",
+  "select": "./packages/select/index.js",
+  "option": "./packages/option/index.js",
+  "collapse": "./packages/collapse/index.js",
+  "collapse-item": "./packages/collapse-item/index.js"
+  
 }

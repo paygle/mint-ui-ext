@@ -6,7 +6,7 @@ html{
 html,body{
   padding: 0;
   margin: 0;
-  font-size: 12px;
+  font-size: 62.5%;
   min-height: 100%;
 }
 
@@ -23,15 +23,76 @@ html,body{
   -webkit-text-stroke-width: 0.2px;
   -moz-osx-font-smoothing: grayscale;
 }
-.mintui-search:before { content: "\e604"; }
-.mintui-more:before { content: "\e601"; }
-.mintui-back:before { content: "\e600"; }
-.mintui-field-error:before { content: "\e605"; }
-.mintui-field-warning:before { content: "\e608"; }
-.mintui-success:before { content: "\e602"; }
-.mintui-field-success:before { content: "\e609"; }
-.mintui-person:before { content: "\e60a"; }
-.mintui-category:before { content: "\e60b"; }
-.mintui-shop-cart:before { content: "\e60c"; }
-.mintui-home:before { content: "\e60d"; }
-.mintui-shop-around:before { content: "\e60e"; }
+
+.mintui-back:before { content: "\E600"; }
+.mintui-more:before { content: "\E601"; }
+.mintui-success:before { content: "\E602"; }
+.mintui-search:before { content: "\E604"; }
+.mintui-field-error:before { content: "\E605"; }
+.mintui-field-warning:before { content: "\E608"; }
+.mintui-field-success:before { content: "\E609"; }
+.mintui-person:before { content: "\E60A"; }
+.mintui-category:before { content: "\E60B"; }
+.mintui-shop-cart:before { content: "\E60C"; }
+.mintui-home:before { content: "\E60D"; }
+.mintui-shop-around:before { content: "\E60E"; }
+.mintui-bsearch:before { content: "\E60F"; }
+.mintui-circle:before { content: "\E610"; }
+.mintui-piehook:before { content: "\E611"; }
+.mintui-cmedit:before { content: "\E612"; }
+.mintui-hook:before { content: "\E613"; }
+.mintui-delete:before { content: "\E614"; }
+.mintui-calculate:before { content: "\E615"; }
+.mintui-statpie:before { content: "\E616"; }
+.mintui-upbxarrow:before { content: "\E617"; }
+.mintui-circlepie:before { content: "\E618"; }
+.mintui-cirleft:before { content: "\E619"; }
+.mintui-cirright:before { content: "\E61A"; }
+.mintui-paper:before { content: "\E61B"; }
+.mintui-unscar:before { content: "\E61C"; }
+.mintui-inscar:before { content: "\E61D"; }
+.mintui-location:before { content: "\E61E"; }
+.mintui-cirplus:before { content: "\E61F"; }
+.mintui-cirhook:before { content: "\E620"; }
+.mintui-cirtime:before { content: "\E621"; }
+.mintui-cutcircle:before { content: "\E622"; }
+.mintui-cirdwarrow:before { content: "\E623"; }
+.mintui-facepen:before { content: "\E624"; }
+.mintui-rmbedit:before { content: "\E625"; }
+.mintui-notedit:before { content: "\E626"; }
+.mintui-cirdwup:before { content: "\E627"; }
+.mintui-noredit:before { content: "\E628"; }
+.mintui-disconnect:before { content: "\E629"; }
+.mintui-notergtarw:before { content: "\E62A"; }
+.mintui-htwoleftarw:before { content: "\E62B"; }
+.mintui-htwohook:before { content: "\E62C"; }
+.mintui-thwofork:before { content: "\E62D"; }
+.mintui-circlemsg:before { content: "\E62E"; }
+.mintui-notesearch:before { content: "\E62F"; }
+.mintui-displayer:before { content: "\E630"; }
+.mintui-gearcircle:before { content: "\E631"; }
+.mintui-staffswitch:before { content: "\E632"; }
+.mintui-closeye:before { content: "\E633"; }
+.mintui-openeye:before { content: "\E634"; }
+.mintui-lock:before { content: "\E635"; }
+.mintui-piefork:before { content: "\E636"; }
+.mintui-staff:before { content: "\E637"; }
+.mintui-person:before { content: "\E638"; }
+.mintui-flag:before { content: "\E639"; }
+.mintui-aimpoint:before { content: "\E63A"; }
+.mintui-locaway:before { content: "\E63B"; }
+.mintui-fournote:before { content: "\E63C"; }
+.mintui-noteup:before { content: "\E63D"; }
+.mintui-downhook:before { content: "\E63E"; }
+.mintui-openweye:before { content: "\E63F"; }
+.mintui-image:before { content: "\E640"; }
+.mintui-telephone:before { content: "\E641"; }
+.mintui-camera:before { content: "\E642"; }
+.mintui-paperdwroll:before { content: "\E643"; }
+.mintui-arrowright:before { content: "\E644"; }
+.mintui-circleright:before { content: "\E645"; }
+.mintui-recthook:before { content: "\E646"; }
+.mintui-bigplus:before { content: "\E647"; }
+.mintui-notehook:before { content: "\E648"; }
+.mintui-circledhash:before { content: "\E649"; }
+.mintui-cirbreakhook:before { content: "\E64A"; }

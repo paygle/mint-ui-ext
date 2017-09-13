@@ -1,0 +1,10 @@
+{
+  "name": "mo-collapse-item",
+  "description": "",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "author": "lxp",
+  "license": "MIT",
+  "dependencies": {
+  }
+}

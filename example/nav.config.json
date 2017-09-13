@@ -3,6 +3,11 @@
     "title": "JS Components",
     "list": [
       {
+        "path": "/collapse",
+        "name": "Collapse",
+        "icon": "cell"
+      },
+      {
         "path": "/toast",
         "name": "Toast",
         "icon": "toast"
@@ -137,6 +142,11 @@
   {
     "title": "Form Components",
     "list": [
+      {
+        "path": "/select",
+        "name": "Select",
+        "icon": "cell"
+      },
       {
         "path": "/switch",
         "name": "Switch",

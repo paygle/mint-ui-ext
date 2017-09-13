@@ -6,7 +6,7 @@
     
     <div class="mint-indexlist-nav" @touchstart="handleTouchStart" ref="nav">
       <ul class="mint-indexlist-navlist">
-        <li class="mint-indexlist-navitem" v-for="section in sections">{{ section.index }}</li>
+        <li class="mint-indexlist-navitem" v-for="(section,idx) in sections" :key="idx">{{ section.index }}</li>
       </ul>
     </div>
     
