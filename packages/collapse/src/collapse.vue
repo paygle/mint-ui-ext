@@ -6,7 +6,14 @@
 
 <script>
 /**
- * mo-collapse
+ * mo-collapse 组件
+  <mo-collapse v-model="collapse">
+    <mo-collapse-item>
+      <div slot="title">Vue 采用最小成本</div>
+      <div slot="content">官方指南会预先假定你已具有中级知识水平。</div>
+    </mo-collapse-item>
+  </mo-collapse>
+ *
  */
 export default {
   name: 'mo-collapse',

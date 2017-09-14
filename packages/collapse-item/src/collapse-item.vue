@@ -42,6 +42,7 @@ export default {
         this.$parent.currentVal = expands.filter((item) => item !== $index);
       }
       this.$parent.update();
+      this.$emit('expand', $index);
     },
 
     update() {

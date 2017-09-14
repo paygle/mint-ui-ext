@@ -15,15 +15,8 @@ export default {
     disabled: Boolean
   },
 
-  data() {
-    return {
-      $index: 0
-    };
-  },
-
   created() {
-    this.$parent.options.push(this);
-    this.$index = this.$parent.options.length - 1;
+    this.$parent.options.push({value: this.val, label: this.label});
   }
 
 };
