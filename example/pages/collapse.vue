@@ -47,11 +47,6 @@
       return {
         collapse: [0]
       };
-    },
-    methods: {
-      xxx() {
-        return false;
-      }
     }
   };
 </script>

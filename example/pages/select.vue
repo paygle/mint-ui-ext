@@ -33,11 +33,6 @@
       return {
         select: ''
       };
-    },
-    methods: {
-      xxx() {
-        return false;
-      }
     }
   };
 </script>
