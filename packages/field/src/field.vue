@@ -191,6 +191,10 @@ export default {
 
       @descendent clear {
         opacity: .2;
+        
+        &>i {
+          font-size: 18px;
+        }
       }
 
       @descendent state {

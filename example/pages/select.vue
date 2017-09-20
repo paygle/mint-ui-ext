@@ -8,10 +8,10 @@
         <mo-option val="2" label="选项2"></mo-option>
         <mo-option val="3" label="选项3"></mo-option>
       </mo-select>
-      <mo-select 
+      <mo-select multiple
         label="类型" 
         placeholder="请输入类型"  
-        v-model="select" 
+        v-model="selectM" 
         :fill-options="fillOptions" 
         fill-params="xxx">
       </mo-select>
@@ -41,6 +41,7 @@
       return {
         username: '',
         select: '2',
+        selectM: '',
         options: [
           {value: '1', label: '11111'},
           {value: '2', label: '22222'},

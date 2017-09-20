@@ -96,3 +96,4 @@ html,body{
 .mintui-notehook:before { content: "\E648"; }
 .mintui-circledhash:before { content: "\E649"; }
 .mintui-cirbreakhook:before { content: "\E64A"; }
+.mintui-loading:before { content: "\E64B"; }

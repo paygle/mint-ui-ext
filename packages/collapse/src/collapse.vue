@@ -44,3 +44,41 @@ export default {
   }
 };
 </script>
+
+<style lang="css">
+  @import "../../../src/style/var.css";
+
+  @component-namespace mo {
+    @component collapse {
+ 
+      @descendent item {
+        display: block;
+        padding: 0 10px;
+
+        .item-title{
+          font-size: 14px;
+          font-weight: bold;
+          padding: 10px 0;
+        }
+
+        .item-content{
+          overflow: hidden;
+        }
+
+        .content-wrapper{
+          height: 0;
+          margin-top: -100%;
+          transform: translate3d(0, -100%, 0);
+          transition: all .2s ease-in 50ms;
+        }
+
+        .content-wrapper.is-expand{
+          height: auto;
+          margin-top: 0;
+          transform: translate3d(0, 0, 0);
+          transition: all .2s ease-in 50ms;
+        }
+      }
+    }
+  }
+</style>

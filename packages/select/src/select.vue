@@ -6,7 +6,7 @@
     :class="[{
       'is-nolabel': !label
     }]">
-    <label class="mo-select-label">
+    <label :class="['mo-select-label', multiple ? 'is-multiple': '']">
       <span v-if="isEmptylabel" class="placeholder" v-text="placeholder"></span>
       <span v-else class="label" v-text="labelText"></span>
       <select 
@@ -240,7 +240,7 @@ export default {
   @component-namespace mo {
     @component select {
       display: flex;
-
+       
       @descendent label {
         display: block;
         position: relative;
@@ -255,6 +255,10 @@ export default {
         }
         .placeholder {
           color: #767676;
+        }
+
+        @when multiple {
+          overflow: hidden;
         }
       }
 
@@ -288,8 +292,12 @@ export default {
       @descendent clear {
         position: absolute;
         right: 2px;
-        top: 5px;
+        top: 3px;
         opacity: .2;
+
+        &>i {
+          font-size: 18px;
+        }
       }
 
       @descendent state {
