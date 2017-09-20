@@ -2,6 +2,7 @@
   <div class="page-collapse">
     <h1 class="page-title">collapse</h1>
     <div class="page-collapse-wrapper">
+      <span @click="modify">修改</span>
       <mo-collapse v-model="collapse">
         <mo-collapse-item>
           <div slot="title">Vue 从根本上采用最小成本</div>
@@ -47,6 +48,11 @@
       return {
         collapse: [0]
       };
+    },
+    methods: {
+      modify() {
+        this.collapse = [1, 2];
+      }
     }
   };
 </script>

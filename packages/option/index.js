@@ -1,1 +1,1 @@
-export { default } from './src/option.vue';
+export { default } from '../select/src/option.vue';

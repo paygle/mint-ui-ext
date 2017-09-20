@@ -102,18 +102,20 @@ export default {
 
   methods: {
     drawLine() {
-      let canv = this.$refs.canv.getContext('2d');
-      let hw = this.$refs.canv.getBoundingClientRect();
-      let w = (hw.width / this.steps) / 2;
-      let h = hw.height / 2;
+      if (this.$refs.canv && this.$refs.canv.getContext('2d')) {
+        let canv = this.$refs.canv.getContext('2d');
+        let hw = this.$refs.canv.getBoundingClientRect();
+        let w = (hw.width / this.steps) / 2;
+        let h = hw.height / 2;
 
-      if (canv && hw) {
-        canv.beginPath();
-        canv.moveTo(w, h);
-        canv.lineTo(hw.width - w, h);
-        canv.strokeStyle = this.lineColor;
-        canv.lineWidth = this.lineWidth;
-        canv.stroke();
+        if (canv && hw) {
+          canv.beginPath();
+          canv.moveTo(w, h);
+          canv.lineTo(hw.width - w, h);
+          canv.strokeStyle = this.lineColor;
+          canv.lineWidth = this.lineWidth;
+          canv.stroke();
+        }
       }
     },
 

@@ -1,12 +1,27 @@
 [
   {
-    "title": "JS Components",
+    "title": "自定义组件",
     "list": [
       {
         "path": "/collapse",
         "name": "Collapse",
         "icon": "cell"
       },
+      {
+        "path": "/circle-step",
+        "name": "Circle Step",
+        "icon": "cell"
+      },
+      {
+        "path": "/select",
+        "name": "Select",
+        "icon": "cell"
+      }
+    ]
+  },
+  {
+    "title": "JS Components",
+    "list": [
       {
         "path": "/toast",
         "name": "Toast",
@@ -93,11 +108,6 @@
     "title": "CSS Components",
     "list": [
       {
-        "path": "/circle-step",
-        "name": "Circle Step",
-        "icon": "cell"
-      },
-      {
         "path": "/header",
         "name": "Header",
         "icon": "header"
@@ -147,11 +157,6 @@
   {
     "title": "Form Components",
     "list": [
-      {
-        "path": "/select",
-        "name": "Select",
-        "icon": "cell"
-      },
       {
         "path": "/switch",
         "name": "Switch",

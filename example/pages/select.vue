@@ -2,10 +2,18 @@
   <div class="page-select">
     <h1 class="page-title">select</h1>
     <div class="page-select-wrapper">
-      <mo-select v-model="select" multiple>
+      <mt-field label="用户名" placeholder="请输入用户名" v-model="username"></mt-field>
+      <mo-select v-model="select" placeholder="请输入" :options-data="options">
         <mo-option val="1" label="选项1"></mo-option>
         <mo-option val="2" label="选项2"></mo-option>
         <mo-option val="3" label="选项3"></mo-option>
+      </mo-select>
+      <mo-select 
+        label="类型" 
+        placeholder="请输入类型"  
+        v-model="select" 
+        :fill-options="fillOptions" 
+        fill-params="xxx">
       </mo-select>
     </div>
   </div>
@@ -31,8 +39,28 @@
   export default {
     data() {
       return {
-        select: ''
+        username: '',
+        select: '2',
+        options: [
+          {value: '1', label: '11111'},
+          {value: '2', label: '22222'},
+          {value: '3', label: '33333'},
+          {value: '4', label: '44444'},
+          {value: '5', label: '55555'}
+        ]
       };
+    },
+    methods: {
+      fillOptions(param) {
+        console.log('PARAM:', param);
+        return [
+          {value: '1', label: 'B11111'},
+          {value: '2', label: 'B22222'},
+          {value: '3', label: 'B33333'},
+          {value: '4', label: 'B44444'},
+          {value: '5', label: 'B55555'}
+        ];
+      }
     }
   };
 </script>

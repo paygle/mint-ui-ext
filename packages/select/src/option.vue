@@ -15,9 +15,12 @@ export default {
     disabled: Boolean
   },
 
-  created() {
-    this.$parent.options.push({value: this.val, label: this.label});
+  mounted() {
+    this.$nextTick(() => {
+      if (Array.isArray(this.$parent.$parent.optionlist)) {
+        this.$parent.$parent.optionlist.push({value: this.val, label: this.label});
+      }
+    });
   }
-
 };
 </script>

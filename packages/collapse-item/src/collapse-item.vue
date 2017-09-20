@@ -25,7 +25,7 @@ export default {
 
   methods: {
     doExpand() {
-      let expands;
+      let expands = [];
       let $index = this.$index;
       let isExpand = this.isExpand = !this.isExpand;
       if (!this.chkParent()) return;
@@ -53,6 +53,8 @@ export default {
       } else if (Array.isArray(this.$parent.value) &&
         this.$parent.value.filter((item) => item === $index).length) {
         this.isExpand = true;
+      } else {
+        this.isExpand = false;
       }
     },
 
