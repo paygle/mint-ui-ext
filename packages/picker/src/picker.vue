@@ -143,6 +143,7 @@
       },
       getSlotValues(index) {
         var slot = this.getSlot(index);
+
         if (slot) {
           return slot.mutatingValues;
         }

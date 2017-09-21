@@ -72,7 +72,7 @@
   }
 
   .picker-item.picker-selected {
-    color: #000;
+    color: #0091ff;
     transform: translate3d(0, 0, 0) rotateX(0);
   }
 

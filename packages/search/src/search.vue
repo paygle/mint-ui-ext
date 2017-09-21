@@ -42,9 +42,9 @@ if (process.env.NODE_ENV === 'component') {
  * @desc 搜索框
  * @param {string} value - 绑定值
  * @param {function} query - 查询结果 参数：(val, filterResult, setLoading)
- * @param {number} delay - 延时查询时间 ms
- * @param {boolean} loading - 是否显示 loading 图标
- * @param {boolean} listNone - 是停用列表
+ * @param {number} [delay=500] - 延时查询时间 ms
+ * @param {boolean} [loading=false] - 是否显示 loading 图标
+ * @param {boolean} [list-none=false] - 是停用列表
  * @param {string} [cancel-text=取消] - 取消按钮文字
  * @param {string} [placeholder=取消] - 搜索框占位内容
  * @param {boolean} [autofocus=false] - 自动 focus

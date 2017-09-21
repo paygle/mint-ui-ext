@@ -8,6 +8,7 @@
       <mt-button @click.native="open('picker4')" size="large">自定义模板</mt-button>
       <mt-button @click.native="open('picker5')" size="large">设定初始值</mt-button>
     </div>
+
     <mt-datetime-picker
       ref="picker1"
       v-model="value"
@@ -66,8 +67,8 @@
   export default {
     data() {
       return {
-        value: null,
-        value2: null,
+        value: '2010-08-08 13:13',
+        value2: '2018-07-08',
         value3: null,
         value4: null,
         value5: '04:32',
@@ -89,6 +90,13 @@
           message: '已选择 ' + value.toString(),
           position: 'bottom'
         });
+        console.log(
+          'value:', this.value, 
+          'value2:', this.value2,
+          'value3:', this.value3,
+          'value4:', this.value4,
+          'value5:', this.value5
+        );
       }
     }
   };

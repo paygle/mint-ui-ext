@@ -3,6 +3,7 @@
     <mt-picker
       :slots="dateSlots"
       @change="onChange"
+      v-on:touchmove.stop
       :visible-item-count="visibleItemCount"
       class="mint-datetime-picker"
       ref="picker"
@@ -80,6 +81,7 @@
         type: String,
         default: 'datetime'
       },
+      isDate: Boolean,    // 是否返回日期类型
       startDate: {
         type: Date,
         default() {
@@ -137,6 +139,7 @@
         startDay: 1,
         endDay: 31,
         currentValue: null,
+        innerValue: '',
         selfTriggered: false,
         dateSlots: [],
         shortMonthDates: [],
@@ -190,6 +193,7 @@
         let value;
         if (this.type === 'time') {
           value = values.map(value => ('0' + this.getTrueValue(value)).slice(-2)).join(':');
+          this.innerValue = value;
         } else {
           let year = this.getTrueValue(values[0]);
           let month = this.getTrueValue(values[1]);
@@ -202,6 +206,12 @@
           let hour = this.typeStr.indexOf('H') > -1 ? this.getTrueValue(values[this.typeStr.indexOf('H')]) : 0;
           let minute = this.typeStr.indexOf('m') > -1 ? this.getTrueValue(values[this.typeStr.indexOf('m')]) : 0;
           value = new Date(year, month - 1, date, hour, minute);
+          // 返回字符类型格式
+          if (this.type === 'datetime') {
+            this.innerValue = year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
+          } else if (this.type === 'date') {
+            this.innerValue = year + '-' + month + '-' + date;
+          }
         }
         return value;
       },
@@ -313,6 +323,7 @@
       rimDetect(result, rim) {
         let position = rim === 'start' ? 0 : 1;
         let rimDate = rim === 'start' ? this.startDate : this.endDate;
+
         if (this.getYear(this.currentValue) === rimDate.getFullYear()) {
           result.month[position] = rimDate.getMonth() + 1;
           if (this.getMonth(this.currentValue) === rimDate.getMonth() + 1) {
@@ -361,11 +372,11 @@
 
       confirm() {
         this.visible = false;
-        this.$emit('confirm', this.currentValue);
+        this.$emit('confirm', this.updateValue);
       },
 
       handleValueChange() {
-        this.$emit('input', this.currentValue);
+        this.$emit('input', this.updateValue);
       }
     },
 
@@ -400,12 +411,20 @@
         } else {
           return 'YMDHm';
         }
+      },
+
+      updateValue() {
+        if (this.isDate) {
+          return this.currentValue;
+        } else {
+          return this.innerValue;
+        }
       }
     },
 
     watch: {
       value(val) {
-        this.currentValue = val;
+        this.currentValue = val || '';
       },
 
       rims() {
@@ -414,7 +433,7 @@
     },
 
     mounted() {
-      this.currentValue = this.value;
+      this.currentValue = this.value || '';
       if (!this.value) {
         if (this.type.indexOf('date') > -1) {
           this.currentValue = this.startDate;

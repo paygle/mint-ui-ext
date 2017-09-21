@@ -9,6 +9,18 @@
 </template>
 
 <script>
+/**
+ * Search 组件属性
+ * @attr {function} query - 查询结果 参数：(val, filterResult, setLoading)
+ * @attr {number} [delay=500] - 延时查询时间 ms
+ * @attr {boolean} [loading=false] - 是否显示 loading 图标
+ * @attr {boolean} [list-none=false] - 是停用列表
+ * @attr {string} [cancel-text=取消] - 取消按钮文字
+ * @attr {string} [placeholder=取消] - 搜索框占位内容
+ * @attr {boolean} [autofocus=false] - 自动 focus
+ * @attr {boolean} [show=false] - 始终显示列表
+ * @attr {string[]} [result] - 结果列表
+ */
 export default {
   name: 'page-search',
 
