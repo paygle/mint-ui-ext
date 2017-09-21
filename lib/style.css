@@ -1631,7 +1631,7 @@ position: absolute;
   pointer-events: none
 }
 .picker-item.picker-selected {
-  color: #000;
+  color: #0091ff;
   -webkit-transform: translate3d(0, 0, 0) rotateX(0);
           transform: translate3d(0, 0, 0) rotateX(0);
 }
