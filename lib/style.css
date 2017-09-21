@@ -1020,6 +1020,9 @@ height: 100%;
 height: 100vh; 
 overflow: hidden;
 }
+.mint-search.is-none-list { 
+height: auto;
+}
 .mint-searchbar { 
 position: relative; 
 -webkit-box-align: center; 

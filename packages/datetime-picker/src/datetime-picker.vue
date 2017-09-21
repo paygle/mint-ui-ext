@@ -206,14 +206,22 @@
           let hour = this.typeStr.indexOf('H') > -1 ? this.getTrueValue(values[this.typeStr.indexOf('H')]) : 0;
           let minute = this.typeStr.indexOf('m') > -1 ? this.getTrueValue(values[this.typeStr.indexOf('m')]) : 0;
           value = new Date(year, month - 1, date, hour, minute);
+          
           // 返回字符类型格式
+          this.innerValue = year + '-' + this.getZeroNum(month) + '-' + this.getZeroNum(date);
           if (this.type === 'datetime') {
-            this.innerValue = year + '-' + month + '-' + date + ' ' + hour + ':' + minute;
-          } else if (this.type === 'date') {
-            this.innerValue = year + '-' + month + '-' + date;
+            this.innerValue += ' ' + this.getZeroNum(hour) + ':' + this.getZeroNum(minute);
           }
         }
         return value;
+      },
+
+      getZeroNum(val) {
+        if (!isNaN(val) && val < 10) {
+          return '0' + val;
+        } else {
+          return val;
+        }
       },
 
       onChange(picker) {

@@ -1,8 +1,8 @@
 <template>
-  <div class="mint-search">
+  <div class="mint-search" :class="{'is-none-list': listNone}">
     <div class="mint-searchbar">
       <div class="mint-searchbar-inner">
-        <i v-if="isLoading" class="loading mintui mintui-loading"></i>
+        <i v-if="isLoading || loading" class="loading mintui mintui-loading"></i>
         <i v-else class="mintui mintui-search"></i>
         <input
           ref="input"
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === 'component') {
  * @module components/search
  * @desc 搜索框
  * @param {string} value - 绑定值
- * @param {function} query - 查询结果 参数：(val, filterResult, setLoading)
+ * @param {function} query - 查询结果 参数：(val, filterResult)
  * @param {number} [delay=500] - 延时查询时间 ms
  * @param {boolean} [loading=false] - 是否显示 loading 图标
  * @param {boolean} [list-none=false] - 是停用列表
@@ -86,7 +86,7 @@ export default {
           } else {
             this.isLoading = true;
           }
-          this.queryResult = this.query.call(null, val, this.filterResult, this.setLoading) || [];
+          this.query.call(null, val, this.filterResult) || [];
         }, this.delay);
       }
     },
@@ -121,18 +121,14 @@ export default {
   },
 
   methods: {
-    filterResult(result, val) {
-      return result.filter((value) => {
-        if (typeof value === 'string') {
+    filterResult(result, val, isfilter) {
+      this.queryResult = result.filter((value) => {
+        if (typeof value === 'string' && isfilter) {
           return new RegExp(val, 'i').test(value);
         } else {
           return true;
         }
       });
-    },
-
-    setLoading(val) {
-      this.isLoading = val === true;
     }
   },
 
@@ -178,6 +174,10 @@ export default {
       height: 100%;
       height: 100vh;
       overflow: hidden;
+
+      @when none-list {
+        height: auto;
+      }
     }
 
     @component searchbar {
