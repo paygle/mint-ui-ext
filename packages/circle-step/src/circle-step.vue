@@ -101,22 +101,78 @@ export default {
   },
 
   methods: {
-    drawLine() {
-      if (this.$refs.canv && this.$refs.canv.getContext('2d')) {
-        let canv = this.$refs.canv.getContext('2d');
+    drawArrows() {
+      if (this.$refs.canv) {
+        let canv = this.$refs.canv, steps = this.steps;
         let hw = this.$refs.canv.getBoundingClientRect();
-        let w = (hw.width / this.steps) / 2;
-        let h = hw.height / 2;
-
-        if (canv && hw) {
-          canv.beginPath();
-          canv.moveTo(w, h);
-          canv.lineTo(hw.width - w, h);
-          canv.strokeStyle = this.lineColor;
-          canv.lineWidth = this.lineWidth;
-          canv.stroke();
+        let lW = this.lineWidth, lC = this.lineColor, lAlen = 5, angle = 35;
+        let stepW = hw.width / steps, stepWhalf = stepW / 2;
+        let circleW = hw.height * this.boxSize, circleWhalf = circleW / 2;
+        let Y = hw.height / 2, arrows = [], pre, item, gap = 3;
+ 
+        for (let i = 0; i < steps - 1; i++) {
+          if (i === 0) {
+            item = {x1: stepW / 2, x2: stepW + stepWhalf - circleWhalf - gap};
+            arrows.push(item);
+          } else {
+            pre = arrows[i - 1];
+            item = {x1: pre.x2 + circleWhalf, x2: pre.x2 + stepW};
+            arrows.push(item);
+          }
+          this.drawArrow(canv, item.x1, Y, item.x2, Y, angle, lAlen, lW, lC);
         }
       }
+    },
+
+    // 绘制箭头
+    drawArrow(ctxdom, fromX, fromY, toX, toY, theta, headlen, width, color) {
+
+      theta = typeof theta !== 'undefined' ? theta : 30; 
+      headlen = typeof headlen !== 'undefined' ? headlen : 8; 
+      width = typeof width !== 'undefined' ? width : 2; 
+      color = typeof color !== 'undefined' ? color : this.lineColor; 
+
+      let ctx = ctxdom ? ctxdom.getContext('2d') : null, arrowX, arrowY,
+        angle = Math.atan2(fromY - toY, fromX - toX) * 180 / Math.PI, 
+        angle1 = (angle + theta) * Math.PI / 180, 
+        angle2 = (angle - theta) * Math.PI / 180, 
+        topX = headlen * Math.cos(angle1), 
+        topY = headlen * Math.sin(angle1), 
+        botX = headlen * Math.cos(angle2), 
+        botY = headlen * Math.sin(angle2); 
+
+      if (!ctx) return;
+      ctx.save(); 
+      ctx.beginPath(); 
+
+      // arrowX = fromX - topX;
+      // arrowY = fromY - topY; 
+      // ctx.moveTo(arrowX, arrowY); 
+      // ctx.lineTo(fromX, fromY); 
+      arrowX = fromX - botX; 
+      arrowY = fromY - botY; 
+      ctx.lineTo(arrowX, arrowY); 
+      ctx.moveTo(fromX, fromY);
+      ctx.lineTo(toX, toY); // other side 
+      ctx.strokeStyle = color; 
+      ctx.lineWidth = width; 
+      ctx.stroke();
+
+      ctx.beginPath();
+      arrowX = toX + topX; 
+      arrowY = toY + topY; 
+      ctx.moveTo(arrowX, arrowY); 
+      ctx.lineTo(toX, toY); 
+      arrowX = toX + botX; 
+      arrowY = toY + botY; 
+      ctx.lineTo(arrowX, arrowY); 
+      ctx.closePath();
+      ctx.strokeStyle = color; 
+      ctx.lineWidth = width; 
+      ctx.fillStyle = color;
+      ctx.fill();
+      ctx.stroke(); 
+      ctx.restore(); 
     },
 
     updateSpanWH() {
@@ -149,7 +205,9 @@ export default {
         setStyle(spans[i], spanWH);
       }
 
-      setTimeout(() => this.drawLine(), 300);
+      setTimeout(() =>{
+       this.drawArrows();
+      }, 300);
     },
 
     getLink(index) {
