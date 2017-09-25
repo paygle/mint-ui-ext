@@ -110,18 +110,20 @@ export default {
       }
 
       &:last-child {
+        /* 影响 android 和 火狐浏览器 多出背景线条
         background-image: linear-gradient(0deg, $color-grey, $color-grey 50%, transparent 50%);
         background-size: 100% 1px;
         background-repeat: no-repeat;
-        background-position: bottom;
+        background-position: bottom; */ 
       }
 
       @descendent wrapper {
+        /* 影响 android 和 火狐浏览器 多出背景线条
         background-image:linear-gradient(180deg, $color-grey, $color-grey 50%, transparent 50%);
         background-size: 120% 1px;
         background-repeat: no-repeat;
         background-position: top left;
-        background-origin: content-box;
+        background-origin: content-box; */
         align-items: center;
         box-sizing: border-box;
         display: flex;
