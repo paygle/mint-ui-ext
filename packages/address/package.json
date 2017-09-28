@@ -1,0 +1,11 @@
+{
+  "name": "mo-address",
+  "description": "",
+  "version": "0.1.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "keywords": [
+    "address"
+  ],
+  "author": "liuxp"
+}

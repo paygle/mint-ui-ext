@@ -37,6 +37,7 @@
   "option": "./packages/option/index.js",
   "collapse": "./packages/collapse/index.js",
   "collapse-item": "./packages/collapse-item/index.js",
-  "circle-step": "./packages/circle-step/index.js"
+  "circle-step": "./packages/circle-step/index.js",
+  "address": "./packages/address/index.js"
   
 }

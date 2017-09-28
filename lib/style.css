@@ -12,7 +12,7 @@ html, body{
 
 /* 字体样式 */
 @font-face {font-family: "mintui";
-  src: url(static/iconfont.1c84d35.ttf)
+  src: url(static/iconfont.98852c5.ttf)
 }
 
 .mintui, [class*=mintui-] {
@@ -97,6 +97,7 @@ html, body{
 .mintui-circledhash:before { content: "\E649"; }
 .mintui-cirbreakhook:before { content: "\E64A"; }
 .mintui-loading:before { content: "\E64B"; }
+.mintui-addcamera:before { content: "\E64C"; }
 /* Cell Component */
 /* Header Component */
 /* Button Component */
@@ -265,35 +266,35 @@ html, body{
 /* Radio Component */
 /* z-index */
 .mint-cell {
-    background-color:#fff;
-    box-sizing:border-box;
-    color:inherit;
-    min-height:48px;
-    display:block;
-    overflow:hidden;
-    position:relative;
-    text-decoration:none;
+    background-color: #fff;
+    box-sizing: border-box;
+    color: inherit;
+    min-height: 48px;
+    display: block;
+    overflow: hidden;
+    position: relative;
+    text-decoration: none;
 }
 .mint-cell img {
-    vertical-align:middle;
+    vertical-align: middle;
 }
 .mint-cell:first-child .mint-cell-wrapper {
-    background-origin:border-box;
+    background-origin: border-box;
 }
 .mint-cell:last-child {
-    background-image:-webkit-linear-gradient(bottom, #d9d9d9, #d9d9d9 50%, transparent 50%);
-    background-image:linear-gradient(0deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
-    background-size:100% 1px;
-    background-repeat:no-repeat;
-    background-position:bottom;
+    /* 影响 android 和 火狐浏览器 多出背景线条
+      background-image: linear-gradient(0deg, $color-grey, $color-grey 50%, transparent 50%);
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: bottom; */
 }
 .mint-cell-wrapper {
-    background-image:-webkit-linear-gradient(top, #d9d9d9, #d9d9d9 50%, transparent 50%);
-    background-image:linear-gradient(180deg, #d9d9d9, #d9d9d9 50%, transparent 50%);
-    background-size: 120% 1px;
-    background-repeat: no-repeat;
-    background-position: top left;
-    background-origin: content-box;
+    /* 影响 android 和 火狐浏览器 多出背景线条
+      background-image:linear-gradient(180deg, $color-grey, $color-grey 50%, transparent 50%);
+      background-size: 120% 1px;
+      background-repeat: no-repeat;
+      background-position: top left;
+      background-origin: content-box; */
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
@@ -310,17 +311,17 @@ html, body{
 }
 .mint-cell-mask {}
 .mint-cell-mask::after {
-    background-color:#000;
-    content:" ";
-    opacity:0;
-    top:0;
-    right:0;
-    bottom:0;
-    left:0;
-    position:absolute;
+    background-color: #000;
+    content: " ";
+    opacity: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    position: absolute;
 }
 .mint-cell-mask:active::after {
-    opacity:.1;
+    opacity: .1;
 }
 .mint-cell-text {
     vertical-align: middle;
@@ -346,7 +347,7 @@ html, body{
             align-items: center;
 }
 .mint-cell-value.is-link {
-    margin-right:24px;
+    margin-right: 24px;
 }
 .mint-cell-left {
     position: absolute;
@@ -368,11 +369,11 @@ html, body{
     border-bottom-width: 0;
     border-left-width: 0;
     content: " ";
-    top:50%;
-    right:20px;
+    top: 50%;
+    right: 20px;
     position: absolute;
-    width:5px;
-    height:5px;
+    width: 5px;
+    height: 5px;
     -webkit-transform: translateY(-50%) rotate(45deg);
             transform: translateY(-50%) rotate(45deg);
 }
@@ -2308,4 +2309,105 @@ position: absolute;
     margin: 0 auto;
     font-size: 12px;
     text-align: center;
+}
+/* Cell Component */
+/* Header Component */
+/* Button Component */
+/* Tab Item Component */
+/* Tabbar Component */
+/* Navbar Component */
+/* Checklist Component */
+/* Radio Component */
+/* z-index */
+.mo-address .picker-slot-wrapper, .mo-address .picker-item {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    font-size: 13px;
+}
+.mo-address .picker-toolbar {
+    border-bottom: solid 1px #eaeaea;
+}
+.mo-address-popup {
+    width: 100%;
+}
+.mo-address-action {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    color: #26a2ff;
+}
+.mo-address-cancel {
+    float: left;
+}
+.mo-address-confirm {
+    float: right;
+}
+.mo-field {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.mo-field .mint-cell-title {
+    width: 105px;
+    -webkit-box-flex: 0;
+        -ms-flex: none;
+            flex: none;
+}
+.mo-field .mint-cell-value {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    color: inherit;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.mo-field.is-nolabel .mint-cell-title {
+    display: none;
+}
+.mo-field-core {
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+    border-radius: 0;
+    border: 0;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    outline: 0;
+    line-height: 1.6;
+    font-size: inherit;
+    width: 100%;
+}
+.mo-field-clear {
+    opacity: .2;
+}
+.mo-field-clear>i {
+    font-size: 18px;
+}
+.mo-field-state {
+    color: inherit;
+    margin-left: 20px;
+}
+.mo-field-state .mintui {
+    font-size: 20px;
+}
+.mo-field-state.is-default {
+    margin-left: 0;
+}
+.mo-field-state.is-success {
+    color: #4caf50;
+}
+.mo-field-state.is-warning {
+    color: #ffc107;
+}
+.mo-field-state.is-error {
+    color: #f44336;
+}
+.mo-field-other {
+    top: 0;
+    right: 0;
+    position: relative;
 }

@@ -8,7 +8,6 @@
       <mt-button @click.native="open('picker4')" size="large">自定义模板</mt-button>
       <mt-button @click.native="open('picker5')" size="large">设定初始值</mt-button>
     </div>
-
     <mt-datetime-picker
       ref="picker1"
       v-model="value"

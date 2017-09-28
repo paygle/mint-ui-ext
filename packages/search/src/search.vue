@@ -14,7 +14,6 @@
       </div>
       <a
         class="mint-searchbar-cancel"
-        
         @click="visible = false, currentValue = ''"
         v-show="visible && cancelText !== ''"
         v-text="cancelText">

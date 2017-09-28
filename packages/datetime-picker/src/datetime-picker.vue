@@ -3,7 +3,6 @@
     <mt-picker
       :slots="dateSlots"
       @change="onChange"
-      v-on:touchmove.stop
       :visible-item-count="visibleItemCount"
       class="mint-datetime-picker"
       ref="picker"
@@ -331,7 +330,6 @@
       rimDetect(result, rim) {
         let position = rim === 'start' ? 0 : 1;
         let rimDate = rim === 'start' ? this.startDate : this.endDate;
-
         if (this.getYear(this.currentValue) === rimDate.getFullYear()) {
           result.month[position] = rimDate.getMonth() + 1;
           if (this.getMonth(this.currentValue) === rimDate.getMonth() + 1) {
