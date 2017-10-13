@@ -9,11 +9,17 @@
         <mo-option val="3" label="选项3"></mo-option>
       </mo-select>
       <mo-select
+        label="参数" 
+        placeholder="请输入类型"  
+        v-model="selectp" 
+        :fill-options="fillParamOptions">
+      </mo-select>
+      <mo-select
         label="类型" 
         placeholder="请输入类型"  
         v-model="selectM" 
         :fill-options="fillOptions" 
-        fill-params="xxx">
+        :fill-params="combParam">
       </mo-select>
     </div>
   </div>
@@ -41,6 +47,7 @@
       return {
         username: '',
         select: '2',
+        selectp: '',
         selectM: '',
         options: [
           {value: '1', label: '11111'},
@@ -51,9 +58,14 @@
         ]
       };
     },
+    computed: {
+      combParam() {
+        return {key: this.select, key2: this.selectp};
+      }
+    },
     methods: {
-      fillOptions(param) {
-        console.log('PARAM:', param);
+      fillParamOptions(param) {
+        console.log('PARAM1:', param);
         return [
           {value: '1', label: 'B11111'},
           {value: '2', label: 'B22222'},
@@ -61,6 +73,20 @@
           {value: '4', label: 'B44444'},
           {value: '5', label: 'B55555'}
         ];
+      },
+      fillOptions(param) {
+        console.log('PARAM2:', param);
+        if (param.key === '1' && param.key2 === '1') {
+          return [
+            {value: '', label: '没有'},
+            {value: '1', label: 'B11111'},
+            {value: '2', label: 'B22222'},
+            {value: '3', label: 'B33333'},
+            {value: '4', label: 'B44444'},
+            {value: '5', label: 'B55555'}
+          ];
+        }
+        return [];
       }
     }
   };

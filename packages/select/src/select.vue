@@ -126,6 +126,11 @@ export default {
   },
 
   watch: {
+    
+    fillParams(n, o) {
+      if (n !== o) this.updateFillOptions();
+    },
+
     value(n, o) {
       if (!n || n === '') {
         this.currentValue = '';
@@ -137,6 +142,14 @@ export default {
 
     currentValue(n, o) {
       this.setLabel(n);
+    },
+
+    cacheData(n, o) {
+      if (n && n.length === 0) {
+        this.optionlist = [];
+        this.currentLabel = '';
+        Array.isArray(this.value) ? this.$emit('input', []) : this.$emit('input', '');
+      }
     },
 
     optionlist(n, o) {
@@ -216,16 +229,20 @@ export default {
         this.labelText = this.currentLabel;
       }
       this.checkEmpty();
+    },
+
+    updateFillOptions() {
+      if (typeof this.fillOptions === 'function') {
+        setTimeout(()=>{
+          this.cacheData = this.fillOptions.call(null, this.fillParams);
+        }, 100);
+      }
     }
   },
 
   mounted() {
     this.checkEmpty();
-    if (typeof this.fillOptions === 'function') {
-      setTimeout(()=>{
-        this.cacheData = this.fillOptions.call(null, this.fillParams);
-      }, 100);
-    }
+    this.updateFillOptions();
   },
 
   created() {

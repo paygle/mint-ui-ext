@@ -5,6 +5,7 @@
       v-for="n in 10"
       :key="n"
       :right="rightButtons"
+      param="param is 10."
       title="swipe me">
     </mt-cell-swipe>
   </div>
@@ -21,7 +22,10 @@
         {
           content: 'Delete',
           style: { background: 'red', color: '#fff' },
-          handler: () => this.$messagebox('delete')
+          handler: (e, p) => { 
+            this.$messagebox('delete');
+            console.log('PARAM:', e, p);
+          }
         }
       ];
     },

@@ -22,7 +22,7 @@
         v-for="(btn, idx) in right"
         :key="idx"
         :style="btn.style"
-        @click.stop="btn.handler && btn.handler(), swipeMove()"
+        @click.stop="btn.handler && btn.handler($event,param), swipeMove()"
         v-html="btn.content"></a>
     </div>
     <div
@@ -34,7 +34,7 @@
         v-for="(btn,idxx) in left"
         :key="idxx"
         :style="btn.style"
-        @click.stop="btn.handler && btn.handler(), swipeMove()"
+        @click.stop="btn.handler && btn.handler($event,param), swipeMove()"
         v-html="btn.content"></a>
     </div>
     <slot></slot>
@@ -92,6 +92,7 @@ export default {
     title: String,
     label: String,
     isLink: Boolean,
+    param: {},
     value: {}
   },
 
