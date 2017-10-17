@@ -14,7 +14,7 @@
       </div>
       <a
         class="mint-searchbar-cancel"
-        @click="visible = false, currentValue = ''"
+        @click="cancelSearch"
         v-show="visible && cancelText !== ''"
         v-text="cancelText">
       </a>
@@ -22,7 +22,12 @@
     <div class="mint-search-list" v-if="!listNone" v-show="show || currentValue">
       <div class="mint-search-list-warp">
         <slot :result="queryResult">
-          <x-cell v-for="(item, index) in queryResult" :key="index" :title="item"></x-cell>
+          <x-cell 
+            v-if="typeof queryResult[0] === 'string'"
+            v-for="(item, index) in queryResult" 
+            :key="index" :title="item" 
+            @click.native="itemClick(item)">
+          </x-cell>
         </slot>
       </div>
     </div>
@@ -96,6 +101,9 @@ export default {
 
     loading(val) {
       this.isLoading = val;
+    },
+    result(n, o) {
+      this.queryResult = n;
     }
   },
 
@@ -120,6 +128,16 @@ export default {
   },
 
   methods: {
+    cancelSearch() {
+      this.$emit('cancel-search', this.currentValue);
+      this.$nextTick(()=>{
+        this.visible = false;
+        this.currentValue = '';
+      });
+    },
+    itemClick(item) {
+      this.$emit('item-click', item);
+    },
     filterResult(result, val, isfilter) {
       this.queryResult = result.filter((value) => {
         if (typeof value === 'string' && isfilter) {
@@ -132,6 +150,7 @@ export default {
   },
 
   mounted() {
+    debugger;
     this.autofocus && this.$refs.input.focus();
     this.queryResult = this.result || [];
   }

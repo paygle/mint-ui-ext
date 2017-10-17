@@ -231,10 +231,14 @@ export default {
       this.checkEmpty();
     },
 
+    getOptions(data) {
+      this.cacheData = data;
+    },
+
     updateFillOptions() {
       if (typeof this.fillOptions === 'function') {
         setTimeout(()=>{
-          this.cacheData = this.fillOptions.call(null, this.fillParams);
+          this.fillOptions.call(null, this.getOptions, this.fillParams);
         }, 100);
       }
     }

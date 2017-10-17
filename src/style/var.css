@@ -42,3 +42,14 @@ $radio-title-color: #888;
 
 /* z-index */
 $z-index-normal: 1;
+
+/* upload */
+$color-primary: #5d9cec;
+$link-hover-color: $color-primary;
+
+$color-base-black: color($color-primary h(+6) s(33%) l(18%));
+$color-light-silver: color($color-base-black h(+3) s(23%) l(67%));
+$color-extra-light-silver: color($color-base-black s(26%) l(80%));
+$color-extra-light-gray: color($color-base-black h(+6) s(33%) l(95%));
+$color-extra-light-black: color($color-base-black h(+2) s(19%) l(35%));
+$md-fade-transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms, opacity 300ms cubic-bezier(0.23, 1, 0.32, 1) 100ms;

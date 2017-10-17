@@ -40,6 +40,8 @@ import Collapse from '../packages/collapse';
 import CollapseItem from '../packages/collapse-item';
 import CircleStep from '../packages/circle-step';
 import Address from '../packages/address';
+import Poplist from '../packages/poplist';
+import Upload from '../packages/upload';
 
 const version = '2.2.9';
 const install = function(Vue, config = {}) {
@@ -79,6 +81,8 @@ const install = function(Vue, config = {}) {
   Vue.component(CollapseItem.name, CollapseItem);
   Vue.component(CircleStep.name, CircleStep);
   Vue.component(Address.name, Address);
+  Vue.component(Poplist.name, Poplist);
+  Vue.component(Upload.name, Upload);
   Vue.use(InfiniteScroll);
   Vue.use(Lazyload, merge({
     loading: require('./assets/loading-spin.svg'),
@@ -136,5 +140,7 @@ module.exports = {
   Collapse,
   CollapseItem,
   CircleStep,
-  Address
+  Address,
+  Poplist,
+  Upload
 };
