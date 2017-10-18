@@ -46,8 +46,8 @@ $z-index-normal: 1;
 /* upload */
 $color-primary: #5d9cec;
 $link-hover-color: $color-primary;
-
 $color-base-black: color($color-primary h(+6) s(33%) l(18%));
+$color-base-silver: color($color-base-black h(+3) s(16%) l(58%));
 $color-light-silver: color($color-base-black h(+3) s(23%) l(67%));
 $color-extra-light-silver: color($color-base-black s(26%) l(80%));
 $color-extra-light-gray: color($color-base-black h(+6) s(33%) l(95%));

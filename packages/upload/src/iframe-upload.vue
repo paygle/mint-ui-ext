@@ -18,7 +18,7 @@
       enctype="multipart/form-data" 
       method="POST">
         <input
-          class="mint-upload__input"
+          class="mint-upload-input"
           type="file"
           ref="input"
           name="file"

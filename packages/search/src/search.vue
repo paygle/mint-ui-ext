@@ -150,7 +150,6 @@ export default {
   },
 
   mounted() {
-    debugger;
     this.autofocus && this.$refs.input.focus();
     this.queryResult = this.result || [];
   }

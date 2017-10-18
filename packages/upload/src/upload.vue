@@ -8,7 +8,7 @@
     </upload-dragger>
     <slot v-else></slot>
     <input 
-      class="mt-upload__input" 
+      class="mt-upload-input" 
       type="file" 
       ref="input" 
       :name="name" 

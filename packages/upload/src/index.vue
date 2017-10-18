@@ -1,5 +1,13 @@
 <template>
   <div>
+    <UploadList
+      v-if="showFileList && listType === 'picture-card'"
+      :disabled="disabled"
+      :listType="listType"
+      :files="uploadFiles"
+      @remove="handleRemove"
+      :handlePreview="onPreview">
+    </UploadList>
     <upload v-if="hasFormData" v-bind="uploadData" ref="upload-inner">
       <slot name="trigger"></slot>
       <slot></slot>
@@ -14,7 +22,7 @@
       :disabled="disabled"
       :listType="listType"
       :files="uploadFiles"
-      @on-remove="handleRemove"
+      @remove="handleRemove"
       :handlePreview="onPreview">
     </UploadList>
   </div>
@@ -139,14 +147,12 @@ export default {
   },
 
   computed: {
-    trigger() {
-      return this.$slots.trigger || this.$slots.default;
-    },
     hasFormData() {
       return typeof FormData !== 'undefined' || this.$isServer;
     },
 
     uploadData() {
+      debugger;
       return {
         type: this.type,
         drag: this.drag,
@@ -224,6 +230,7 @@ export default {
       this.onChange(file, this.uploadFiles);
     },
     handleRemove(file, raw) {
+      debugger;
       if (raw) {
         file = this.getFile(raw);
       }
@@ -267,18 +274,18 @@ export default {
 };
 </script>
 <style>
- @import "../../../src/style/var.css";
+@import "../../../src/style/var.css";
 
 @component-namespace mt {
-  @b upload {
+  @component upload {
     display: inline-block;
     text-align: center;
     cursor: pointer;
 
-    @e input {
+    @descendent input {
       display: none;
     }
-    @e tip {
+    @descendent tip {
       font-size: 12px;
       color: $color-base-silver;
       margin-top: 7px;
@@ -292,7 +299,7 @@ export default {
       filter: alpha(opacity=0);
     }
     /* 照片墙模式 */
-    @m picture-card {
+    @modifier picture-card {
       background-color: #fbfdff;
       border: 1px dashed #c0ccda;
       border-radius: 6px;
@@ -314,7 +321,7 @@ export default {
       }
     }
   }
-  @b upload-dragger {
+  @component upload-dragger {
     background-color: #fff;
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
@@ -333,15 +340,15 @@ export default {
       line-height: 50px;
     }
 
-    & + .mt-upload__tip {
+    & + .mt-upload-tip {
       text-align: center;
     }
-    & ~ .mt-upload__files {
+    & ~ .mt-upload-files {
       border-top: 1px solid rgba($color-extra-light-silver, .2);
       margin-top: 7px;
       padding-top: 5px;
     }
-    .mt-upload__text {
+    .mt-upload-text {
       color: $color-light-silver;
       text-align: center;
 
@@ -355,18 +362,18 @@ export default {
       border-color: $color-primary;
     }
 
-    /* @when dragover {
+    @when dragover {
       background-color: rgba(32, 159, 255, .06);
       border: 2px dashed $color-primary;
-    } */
+    }
   }
 
-  @b upload-list {
+  @component upload-list {
     margin: 0;
     padding: 0;
     list-style: none;
 
-    @e item {
+    @descendent item {
       transition: all .5s cubic-bezier(.55,0,.1,1);
       color: $color-extra-light-black;
       line-height: 1.8;
@@ -382,7 +389,7 @@ export default {
         top: 20px;
         width: 100%;
       }
-      & .mt-progress__text {
+      & .mt-progress-text {
         position: absolute;
         right: 0;
         top: -13px;
@@ -401,7 +408,7 @@ export default {
       & .mintui-close {
         display: none;
         position: absolute;
-        top: 5px;
+        top: 0px;
         right: 5px;
         cursor: pointer;
         opacity: .75;
@@ -418,31 +425,31 @@ export default {
         .mintui-close {
           display: inline-block;
         }
-        .mt-progress__text {
+        .mt-progress-text {
           display: none;
         }
       }
-      /* @when success {
-        .mt-upload-list__item-status-label {
+      @when success {
+        .mt-upload-list-item-status-label {
           display: block;
         }
-        .mt-upload-list__item-name:hover {
+        .mt-upload-list-item-name:hover {
           color: $link-hover-color;
           cursor: pointer;
         }
         &:hover {
-          .mt-upload-list__item-status-label {
+          .mt-upload-list-item-status-label {
             display: none;
           }
         }
-      } */
+      }
     }
-    /* @when disabled {
-      .mt-upload-list__item:hover .mt-upload-list__item-status-label {
+    @when disabled {
+      .mt-upload-list-item:hover .mt-upload-list-item-status-label {
         display: block;
       }
-    } */
-    @e item-name {
+    }
+    @descendent item-name {
       color: $color-extra-light-black;
       display: block;
       margin-right: 40px;
@@ -459,14 +466,14 @@ export default {
         line-height: inherit;
       }
     }
-    @e item-status-label {
+    @descendent item-status-label {
       position: absolute;
       right: 5px;
       top: 0;
       line-height: inherit;
       display: none;
     }
-    @e item-delete {
+    @descendent item-delete {
       position: absolute;
       right: 10px;
       top: 0;
@@ -475,15 +482,15 @@ export default {
       display: none;
 
       &:hover {
-        color: $color-primar;
+        color: $color-primary;
       }
     }
-    @m picture-card {
+    @modifier picture-card {
       margin: 0;
       display: inline;
       vertical-align: top;
 
-      .mt-upload-list__item {
+      .mt-upload-list-item {
         overflow: hidden;
         background-color: #fff;
         border: 1px solid #c0ccda;
@@ -504,22 +511,22 @@ export default {
         }
 
         &:hover {
-          .mt-upload-list__item-status-label {
+          .mt-upload-list-item-status-label {
             display: none;
           }
-          .mt-progress__text {
+          .mt-progress-text {
             display: block;
           }
         }
       }
-      .mt-upload-list__item-name {
+      .mt-upload-list-item-name {
         display: none;
       }
-      .mt-upload-list__item-thumbnail {
+      .mt-upload-list-item-thumbnail {
         width: 100%;
         height: 100%;
       }
-      .mt-upload-list__item-status-label {
+      .mt-upload-list-item-status-label {
         position: absolute;
         right: -15px;
         top: -6px;
@@ -536,7 +543,7 @@ export default {
           transform: rotate(-45deg) scale(0.8);
         }
       }
-      .mt-upload-list__item-actions {
+      .mt-upload-list-item-actions {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -559,7 +566,7 @@ export default {
           margin-left: 15px;
         }
 
-        .mt-upload-list__item-delete {
+        .mt-upload-list-item-delete {
           position: static;
           font-size: inherit;
           color: inherit;
@@ -579,13 +586,13 @@ export default {
         bottom: auto;
         width: 126px;
 
-        .mt-progress__text {
+        .mt-progress-text {
           top: 50%;
         }
       }
     }
-    @m picture {
-      .mt-upload-list__item {
+    @modifier picture {
+      .mt-upload-list-item {
         overflow: hidden;
         background-color: #fff;
         border: 1px solid #c0ccda;
@@ -600,18 +607,18 @@ export default {
           color: $color-white;
         }
         &:hover {
-          .mt-upload-list__item-status-label {
+          .mt-upload-list-item-status-label {
             background: transparent;
             box-shadow: none;
             top: -2px;
             right: -12px;
           }
-          .mt-progress__text {
+          .mt-progress-text {
             display: block;
           }
         }
         &.is-success {
-          .mt-upload-list__item-name {
+          .mt-upload-list-item-name {
             line-height: 70px;
             margin-top: 0;
 
@@ -621,7 +628,7 @@ export default {
           }
         }
       }
-      .mt-upload-list__item-thumbnail {
+      .mt-upload-list-item-thumbnail {
         vertical-align: middle;
         display: inline-block;
         width: 70px;
@@ -631,7 +638,7 @@ export default {
         z-index: 1;
         margin-left: -80px;
       }
-      .mt-upload-list__item-name {
+      .mt-upload-list-item-name {
         display: block;
         margin-top: 20px;
 
@@ -643,7 +650,7 @@ export default {
           top: 10px;
         }
       }
-      .mt-upload-list__item-status-label {
+      .mt-upload-list-item-status-label {
         position: absolute;
         right: -17px;
         top: -7px;
@@ -655,9 +662,11 @@ export default {
         box-shadow: 0 1px 1px #ccc;
 
         i {
+          display: inline-block;
+          color: #fff;
           font-size: 12px;
-          margin-top: 12px;
-          transform: rotate(-45deg) scale(0.8);
+          margin-top: 8px;
+          transform: rotate(-45deg);
         }
       }
       .mt-progress {
@@ -667,8 +676,7 @@ export default {
     }
   }
 
-
-  @b upload-cover {
+  @component upload-cover {
     position: absolute;
     left: 0;
     top: 0;
@@ -677,7 +685,6 @@ export default {
     overflow: hidden;
     z-index: 10;
     cursor: default;
-    /* @utils-vertical-center; */
 
     & img {
       display: block;
@@ -685,7 +692,7 @@ export default {
       height: 100%;
     }
 
-    @e label {
+    @descendent label {
       position: absolute;
       right: -15px;
       top: -6px;
@@ -704,18 +711,18 @@ export default {
       }
     }
 
-    @e progress {
+    @descendent progress {
       display: inline-block;
       vertical-align: middle;
       position: static;
       width: 243px;
 
-      & + .mt-upload__inner {
+      & + .mt-upload-inner {
         opacity: 0;
       }
     }
 
-    @e content {
+    @descendent content {
       position: absolute;
       top: 0;
       left: 0;
@@ -723,7 +730,7 @@ export default {
       height: 100%;
     }
 
-    @e interact {
+    @descendent interact {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -771,7 +778,7 @@ export default {
       }
     } 
 
-    @e title {
+    @descendent title {
       position: absolute;
       bottom: 0;
       left: 0;
@@ -789,7 +796,7 @@ export default {
       color: $color-extra-light-black;
     }
 
-    & + .mt-upload__inner {
+    & + .mt-upload-inner {
       opacity: 0;
       position: relative;
       z-index: 1;
