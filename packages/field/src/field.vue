@@ -28,13 +28,13 @@
       :type="type"
       @focus="active = true"
       :disabled="disabled"
-      :readonly="readonly"
+      :readonly="isReadonly || readonly"
       :value="currentValue"
       @input="handleInput">
     <div
       @click="handleClear"
       class="mint-field-clear"
-      v-if="!disableClear"
+      v-if="!disableClear && !disabled  && !isReadonly&& !readonly"
       v-show="currentValue && type !== 'textarea' && active">
       <i class="mintui mintui-field-error"></i>
     </div>
@@ -79,6 +79,7 @@ export default {
   data() {
     return {
       active: false,
+      isReadonly: false,
       currentValue: this.value
     };
   },
@@ -103,7 +104,8 @@ export default {
       default: 'default'
     },
     value: {},
-    attr: Object
+    attr: Object,
+    translate: Function
   },
 
   components: { XCell },
@@ -114,22 +116,38 @@ export default {
     },
 
     handleInput(evt) {
-      this.currentValue = evt.target.value;
+      this.decodeValue(evt.target.value);
     },
 
     handleClear() {
       if (this.disabled || this.readonly) return;
       this.currentValue = '';
+    },
+    setText(text) {
+      this.currentValue = text;
+    },
+    decodeValue(value) {
+      if (typeof this.translate === 'function' && value !== '') {
+        this.isReadonly = true;
+        this.translate.call(null, this.setText, value);
+      } else {
+        this.currentValue = value;
+      }
     }
   },
 
   watch: {
-    value(val) {
-      this.currentValue = val;
+    value: {
+      immediate: true,
+      handler(val) {
+        this.decodeValue(val);
+      }
     },
 
     currentValue(val) {
-      this.$emit('input', val);
+      if (typeof this.translate !== 'function') {
+        this.$emit('input', val);
+      }
     },
 
     attr: {

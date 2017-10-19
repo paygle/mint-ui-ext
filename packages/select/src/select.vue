@@ -203,14 +203,18 @@ export default {
 
     setLabel(val) {
       let that = this;
-
+      let kval = [];
       that.optionlist.forEach(item => {
         if (typeof val === 'string') {
-          if (item.value === val) { that.currentLabel = item.label; }
+          if (item.value === val) { 
+            that.currentLabel = item.label;
+            kval.push(item);
+          }
         } else if (Array.isArray(val)) {
           val.forEach(v => {
             if (v === item.value) {
               that.currentLabel.push(item.label);
+              kval.push(item);
             }
           });
         }
@@ -228,6 +232,7 @@ export default {
       } else {
         this.labelText = this.currentLabel;
       }
+      this.$emit('change', kval);
       this.checkEmpty();
     },
 

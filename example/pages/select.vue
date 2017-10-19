@@ -18,6 +18,7 @@
         label="类型" 
         placeholder="请输入类型"  
         v-model="selectM" 
+        @change="getItems"
         :fill-options="fillOptions" 
         :fill-params="combParam">
       </mo-select>
@@ -64,6 +65,9 @@
       }
     },
     methods: {
+      getItems(items) {
+        console.log('items:', items);
+      },
       fillParamOptions(getOptions, param) {
         console.log('PARAM1:', param);
         getOptions([

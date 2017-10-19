@@ -1,28 +1,30 @@
 <template>
-  <mt-popup 
-    class="mo-poplist"
-    v-model="value" 
-    :position="position"
-    :modal="modal"
-    :modal-fade="modalFade"
-    :lockScroll="lockScroll"
-    :close-on-click-modal="closeOnClickModal"
-    :popup-transition="popupTransition">
-    <mt-search 
-      v-if="value"
-      v-model="currentQuery"
-      :result="result"
-      @item-click="getContent"
-      @cancel-search="cancelSearch" show>
-      <slot :data="result" :get-content="getContent">
-        <x-cell 
-          v-for="(item, index) in result" 
-          :key="index" :title="item" 
-          @click.native="getContent(item)">
-        </x-cell>
-      </slot>
-    </mt-search>
-  </mt-popup>
+  <div class="poplist-wrapper">
+    <mt-popup 
+      class="mo-poplist"
+      v-model="value" 
+      :position="position"
+      :modal="modal"
+      :modal-fade="modalFade"
+      :lockScroll="lockScroll"
+      :close-on-click-modal="closeOnClickModal"
+      :popup-transition="popupTransition">
+      <mt-search 
+        v-if="value"
+        v-model="currentQuery"
+        :result="result"
+        @item-click="getContent"
+        @cancel-search="cancelSearch" show>
+        <slot :data="result" :get-content="getContent">
+          <x-cell 
+            v-for="(item, index) in result" 
+            :key="index" :title="item" 
+            @click.native="getContent(item)">
+          </x-cell>
+        </slot>
+      </mt-search>
+    </mt-popup>
+  </div>
 </template>
 
 <script type="text/babel">
@@ -34,7 +36,9 @@ if (process.env.NODE_ENV === 'component') {
 export default {
   name: 'mo-poplist',
 
-  components: { XCell },
+  components: { 
+    XCell
+  },
 
   props: {
     value: Boolean,
@@ -114,7 +118,26 @@ export default {
     getContent(item) {
       this.$emit('changed', item);
       this.$emit('input', false);
+    },
+
+    createPopper() {
+      this.$nextTick(()=>{
+        let poplists = document.querySelectorAll('body>.poplist-wrapper');
+        let isfind = false;
+        poplists.forEach((elem) => {
+           if (elem === this.$el) {
+             isfind = true;
+           }
+        });
+        if (!isfind) document.body.appendChild(this.$el);
+      });
     }
+  },
+  beforeDestroy() {
+    document.body.removeChild(this.$el);
+  },
+  mounted() {
+    this.createPopper();
   }
 };
 </script>

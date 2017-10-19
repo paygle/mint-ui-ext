@@ -1,7 +1,7 @@
 <template>
-  <label class="mint-switch">
-    <input class="mint-switch-input" :disabled="disabled" @change="$emit('change', currentValue)" type="checkbox" v-model="currentValue">
-    <span class="mint-switch-core"></span>
+  <label class="mint-switch" :class="classDisabled">
+    <input class="mint-switch-input" :disabled="disabled" @change="$emit('change', value)" type="checkbox" v-model="currentValue">
+    <span class="mint-switch-core" :class="bgclass" :style="bgcolor"></span>
     <div class="mint-switch-label"><slot></slot></div>
   </label>
 </template>
@@ -21,20 +21,75 @@ export default {
   name: 'mt-switch',
 
   props: {
-    value: Boolean,
+    value: [Boolean, String, Number],
+    colorOn: String,
+    colorOff: String,
+    switchOn: {
+      type: [Boolean, String, Number],
+      default: true
+    },
+    switchOff: {
+      type: [Boolean, String, Number],
+      default: false
+    },
     disabled: {
       type: Boolean,
       default: false
     }
   },
+  data() {
+    return {
+      bgcolor: {},
+      bgclass: ''
+    };
+  },
   computed: {
+
+    classDisabled() {
+      if (this.disabled) {
+        return 'disabled';
+      }
+      return '';
+    },
+    
     currentValue: {
       get() {
-        return this.value;
+        if (this.switchOn === this.value) {
+          return true;
+        } else if (this.switchOff === this.value) {
+          return false;
+        } 
+        return;
       },
       set(val) {
-        this.$emit('input', val);
+        if (val) {
+          this.bgcolor = this.getBgcolor(this.switchOn);
+          this.$emit('input', this.switchOn);
+        } else {
+          this.bgcolor = this.getBgcolor(this.switchOff);
+          this.$emit('input', this.switchOff);
+        }
       }
+    }
+  },
+  methods: {
+    getBgcolor(val) {
+      this.bgclass = '';
+      if (this.disabled) return {};
+      if (this.colorOn && val === this.switchOn) {
+        return {border: '1px solid ' + this.colorOn, background: this.colorOn};
+      } else if (this.colorOff && val === this.switchOff) {
+        this.bgclass = 'trans';
+        return {border: '1px solid ' + this.colorOff, background: this.colorOff};
+      }
+      return {};
+    }
+  },
+  mounted() {
+    if (this.currentValue) {
+      this.bgcolor = this.getBgcolor(this.switchOn);
+    } else {
+      this.bgcolor = this.getBgcolor(this.switchOff);
     }
   }
 };
@@ -87,6 +142,22 @@ export default {
         &::before {
           size: 50px 30px;
           background-color: #fdfdfd;
+        }
+
+        &.trans::before {
+          background-color: transparent;
+        }
+      }
+
+      &.disabled > .mint-switch-core {
+        border: 1px solid #ddd;
+        background: #ddd;
+        &::after {
+          background-color: #eee;
+        }
+
+        &::before {
+          background-color: #ddd;
         }
       }
 

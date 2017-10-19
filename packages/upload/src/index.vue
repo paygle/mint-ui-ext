@@ -152,7 +152,6 @@ export default {
     },
 
     uploadData() {
-      debugger;
       return {
         type: this.type,
         drag: this.drag,
@@ -230,7 +229,6 @@ export default {
       this.onChange(file, this.uploadFiles);
     },
     handleRemove(file, raw) {
-      debugger;
       if (raw) {
         file = this.getFile(raw);
       }
