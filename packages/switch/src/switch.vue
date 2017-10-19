@@ -1,6 +1,6 @@
 <template>
   <label class="mint-switch" :class="classDisabled">
-    <input class="mint-switch-input" :disabled="disabled" @change="$emit('change', value)" type="checkbox" v-model="currentValue">
+    <input class="mint-switch-input" :disabled="disabled" @change="switchChange" type="checkbox" v-model="currentValue">
     <span class="mint-switch-core" :class="bgclass" :style="bgcolor"></span>
     <div class="mint-switch-label"><slot></slot></div>
   </label>
@@ -83,6 +83,9 @@ export default {
         return {border: '1px solid ' + this.colorOff, background: this.colorOff};
       }
       return {};
+    },
+    switchChange() {
+      this.$nextTick(()=>{ this.$emit('change', this.value); });
     }
   },
   mounted() {

@@ -3163,10 +3163,6 @@ pluralize@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-1.2.1.tgz#d1a21483fd22bb41e58a12fa3421823140897c45"
 
-popper.js@^1.9.1:
-  version "1.12.5"
-  resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-1.12.5.tgz#229e4dea01629e1f1a1e26991ffade5024220fa6"
-
 portfinder@^1.0.9:
   version "1.0.10"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.10.tgz#7a4de9d98553c315da6f1e1ed05138eeb2d16bb8"
@@ -4870,13 +4866,6 @@ vue-loader@>=9.4.2:
     vue-style-loader "^1.0.0"
     vue-template-es2015-compiler "^1.2.2"
 
-vue-popperjs@^1.2.2:
-  version "1.2.2"
-  resolved "http://registry.npm.taobao.org/vue-popperjs/download/vue-popperjs-1.2.2.tgz#63c544d5cf06a448fa5b0383c20f46f6c788b17c"
-  dependencies:
-    popper.js "^1.9.1"
-    vue "^2.3.3"
-
 vue-router@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-2.1.1.tgz#10c31bbdcb6da92bd3e0223fa12345e73018625a"
@@ -4908,10 +4897,6 @@ vue-template-es2015-compiler@^1.2.2, vue-template-es2015-compiler@^1.4.2:
 vue@^2.3.2:
   version "2.3.2"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.3.2.tgz#9e52aae3593480be235ff227557837e69f98203a"
-
-vue@^2.3.3:
-  version "2.5.2"
-  resolved "http://registry.npm.taobao.org/vue/download/vue-2.5.2.tgz#fd367a87bae7535e47f9dc5c9ec3b496e5feb5a4"
 
 watchpack@^1.0.0:
   version "1.2.0"

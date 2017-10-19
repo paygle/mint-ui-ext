@@ -83,7 +83,6 @@
 
         if (param.key === '1' && param.key2 === '1') {
           getOptions([
-            {value: '', label: '没有'},
             {value: '1', label: 'B11111'},
             {value: '2', label: 'B22222'},
             {value: '3', label: 'B33333'},

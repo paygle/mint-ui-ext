@@ -18,6 +18,7 @@
         :readonly="readonly"
         :multiple="multiple">
         <template v-if="cacheData">
+          <mo-option val="" label="请选择"></mo-option>
           <mo-option 
             v-for="(item, idx) in cacheData"
             :key="idx"
@@ -131,12 +132,15 @@ export default {
       if (n !== o) this.updateFillOptions();
     },
 
-    value(n, o) {
-      if (!n || n === '') {
-        this.currentValue = '';
-        this.setLabel(n);
-      } else {
-        this.currentValue = n;
+    value: {
+      immediate: true,
+      handler(n) {
+        if (!n || n === '') {
+          this.currentValue = '';
+          this.setLabel(n);
+        } else {
+          this.currentValue = n;
+        }
       }
     },
 
@@ -289,7 +293,7 @@ export default {
       }
 
       .mint-cell-title {
-        width: 105px;
+        width: 90px;
         flex: none;
       }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="page-poplist">
     <h1 class="page-title">Poplist</h1>
-    <div class="page-poplist-wrapper">
+    <div class="page-poplist-wrapper" style="height: 1000px;">
       <mt-field label="选择输入1" v-model="content1">
         <img @click="changePop1" src="../assets/more.png" height="30px" width="30px">
       </mt-field>
@@ -102,10 +102,8 @@
   @component-namespace page {
     @component poplist {
       @descendent wrapper {
-        padding: 0 20px;
-        position: absolute 50% * * *;
+        padding: 30px 20px;
         width: 100%;
-        transform: translateY(-50%);
         button:not(:last-child) {
           margin-bottom: 20px;
         }

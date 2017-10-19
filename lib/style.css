@@ -429,7 +429,7 @@ html, body{
     display: flex;
 }
 .mint-field .mint-cell-title {
-    width: 105px;
+    width: 90px;
     -webkit-box-flex: 0;
         -ms-flex: none;
             flex: none;
@@ -2190,7 +2190,7 @@ position: absolute;
     display: flex;
 }
 .mo-select .mint-cell-title {
-    width: 105px;
+    width: 90px;
     -webkit-box-flex: 0;
         -ms-flex: none;
             flex: none;
@@ -2387,7 +2387,7 @@ position: absolute;
     display: flex;
 }
 .mo-field .mint-cell-title {
-    width: 105px;
+    width: 90px;
     -webkit-box-flex: 0;
         -ms-flex: none;
             flex: none;

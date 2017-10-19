@@ -7,6 +7,8 @@
       :modal="modal"
       :modal-fade="modalFade"
       :lockScroll="lockScroll"
+      @touchstart.stop.prevent
+      @touchmove.stop.prevent
       :close-on-click-modal="closeOnClickModal"
       :popup-transition="popupTransition">
       <mt-search 
