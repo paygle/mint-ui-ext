@@ -565,6 +565,16 @@ html, body{
 .mint-switch * {
     pointer-events: none;
 }
+.mint-switch.disabled > .mint-switch-core {
+    border: 1px solid #ddd;
+    background: #ddd;
+}
+.mint-switch.disabled > .mint-switch-core::after {
+    background-color: #eee;
+}
+.mint-switch.disabled > .mint-switch-core::before {
+    background-color: #ddd;
+}
 .mint-switch-label {
     margin-left: 10px;
     display: inline-block;
@@ -603,6 +613,9 @@ html, body{
     width: 50px;
     height: 30px;
     background-color: #fdfdfd;
+}
+.mint-switch-core.trans::before {
+    background-color: transparent;
 }
 .mint-switch-input {
     display: none;
