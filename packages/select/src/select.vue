@@ -288,7 +288,7 @@ export default {
         }
 
         @when multiple {
-          overflow: hidden;
+          overflow: auto;
         }
       }
 

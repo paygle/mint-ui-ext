@@ -2223,7 +2223,7 @@ position: absolute;
     color: #767676;
 }
 .mo-select-label.is-multiple {
-    overflow: hidden;
+    overflow: auto;
 }
 .mo-select-core {
     position: absolute;

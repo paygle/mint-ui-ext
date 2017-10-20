@@ -20,7 +20,7 @@
         v-model="selectM" 
         @change="getItems"
         :fill-options="fillOptions" 
-        :fill-params="combParam">
+        :fill-params="combParam" multiple>
       </mo-select>
     </div>
   </div>
@@ -49,7 +49,7 @@
         username: '',
         select: '2',
         selectp: '',
-        selectM: '',
+        selectM: [],
         options: [
           {value: '1', label: '11111'},
           {value: '2', label: '22222'},
