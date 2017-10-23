@@ -158,7 +158,7 @@ export default {
 
     optionlist(n, o) {
       if (Array.isArray(this.cacheData)) {
-        if (this.cacheData.length === n.length) {
+        if (n.length >= this.cacheData.length - 1) {
           this.setLabel(this.currentValue);
         }
       } else {
