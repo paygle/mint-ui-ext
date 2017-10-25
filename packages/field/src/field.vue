@@ -2,6 +2,9 @@
   <x-cell
     class="mint-field"
     :title="label"
+    :err-msg="errMsg"
+    :is-invalid="isInvalid"
+    :is-required="isRequired"
     v-clickoutside="doCloseActive"
     :class="[{
       'is-textarea': type === 'textarea',
@@ -50,6 +53,7 @@
 <script>
 import XCell from 'mint-ui/packages/cell/index.js';
 import Clickoutside from 'mint-ui/src/utils/clickoutside';
+import validator from 'mint-ui/src/mixins/validator';
 if (process.env.NODE_ENV === 'component') {
   require('mint-ui/packages/cell/style.css');
 }
@@ -75,6 +79,8 @@ if (process.env.NODE_ENV === 'component') {
  */
 export default {
   name: 'mt-field',
+
+  mixins: [validator],
 
   data() {
     return {
@@ -127,6 +133,7 @@ export default {
       this.currentValue = text;
     },
     decodeValue(value) {
+      if (typeof value === 'undefined') value = this.value;
       if (typeof this.translate === 'function' && value !== '') {
         this.isReadonly = true;
         this.translate.call(null, this.setText, value);
@@ -134,14 +141,19 @@ export default {
         this.currentValue = value;
       }
     }
+
+  },
+
+  mounted() {
+    this.decodeValue();
+    this.initValidators();  // 初始化验证
   },
 
   watch: {
-    value: {
-      immediate: true,
-      handler(val) {
-        this.decodeValue(val);
-      }
+    value(val) {
+      this.goValid = true;
+      this.decodeValue(val);
+      this.validateFields();  // 监控验证
     },
 
     currentValue(val) {

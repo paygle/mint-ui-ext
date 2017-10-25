@@ -3,6 +3,9 @@
     <x-cell
       class="mo-field"
       :title="label"
+      :err-msg="errMsg"
+      :is-invalid="isInvalid"
+      :is-required="isRequired"
       :class="[{'is-nolabel': !label}]">
       <input
         ref="input"
@@ -46,6 +49,7 @@
 import XCell from 'mint-ui/packages/cell/index.js';
 import MtPopup from 'mint-ui/packages/popup/index.js';
 import MtPicker from 'mint-ui/packages/picker/index.js';
+import validator from 'mint-ui/src/mixins/validator';
 if (process.env.NODE_ENV === 'component') {
   require('mint-ui/packages/address/style.css');
 }
@@ -54,6 +58,8 @@ export default {
   name: 'mo-address',
 
   componentName: 'address',
+
+  mixins: [validator],
 
   components: {
     XCell,
@@ -134,7 +140,8 @@ export default {
           className: 'slot5',
           textAlign: 'center'
         }
-      ]
+      ],
+      isFirst: true
     };
   },
 
@@ -151,12 +158,20 @@ export default {
     value: {
       immediate: true,
       handler(n, o) {
+        this.goValid = true;
         if (typeof n === 'string' && n !== o) {
           let v = n.split('-') || [];
           this.setValues(v[0], v[1], v[2]);
         }
+        this.$nextTick(()=>{
+          if (this.validate) this.validateFields();  // 监控验证
+        });
       }
     }
+  },
+
+  created() {
+    this.initValidators();  // 初始化验证
   },
 
   mounted() {

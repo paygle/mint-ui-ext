@@ -15,7 +15,7 @@
       <a
         class="mint-searchbar-cancel"
         @click="cancelSearch"
-        v-show="visible && cancelText !== ''"
+        v-show="(visible || showButton) && cancelText !== ''"
         v-text="cancelText">
       </a>
     </div>
@@ -111,6 +111,7 @@ export default {
     value: String,
     autofocus: Boolean,
     show: Boolean,
+    showButton: Boolean,
     loading: Boolean,
     cancelText: {
       default: '取消'

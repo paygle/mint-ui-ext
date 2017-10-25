@@ -2,6 +2,9 @@
   <x-cell
     class="mo-select"
     :title="label"
+    :err-msg="errMsg"
+    :is-invalid="isInvalid"
+    :is-required="isRequired"
     v-clickoutside="doCloseActive"
     :class="[{
       'is-nolabel': !label
@@ -48,6 +51,7 @@
 <script>
 import XCell from 'mint-ui/packages/cell/index.js';
 import Clickoutside from 'mint-ui/src/utils/clickoutside';
+import validator from 'mint-ui/src/mixins/validator';
 if (process.env.NODE_ENV === 'component') {
   require('mint-ui/packages/cell/style.css');
 }
@@ -65,6 +69,7 @@ import MoOption from './option';
 
 export default {
   name: 'mo-select',
+  mixins: [validator],
   directives: {
     Clickoutside
   },
@@ -90,7 +95,7 @@ export default {
       type: String,
       default: 'default'
     },
-    attr: Object
+    attr: Object 
   },
 
   data() {
@@ -100,7 +105,8 @@ export default {
       labelText: '',
       cacheData: null,
       optionlist: [],
-      isEmptylabel: true
+      isEmptylabel: true,
+      isFirst: true
     };
   },
 
@@ -145,7 +151,11 @@ export default {
     },
 
     currentValue(n, o) {
+      this.goValid = true;
       this.setLabel(n);
+      this.$nextTick(()=>{
+        if (this.validate) this.validateFields();  // 监控验证
+      });
     },
 
     cacheData(n, o) {
@@ -260,6 +270,7 @@ export default {
 
   created() {
     this.cacheData = this.optionsData;
+    this.initValidators();  // 初始化验证
   }
 };
 </script>

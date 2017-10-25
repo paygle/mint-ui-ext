@@ -12,7 +12,9 @@
         label="参数" 
         placeholder="请输入类型"  
         v-model="selectp" 
-        :fill-options="fillParamOptions">
+        :fill-options="fillParamOptions"
+        :validate="validate" 
+        @update-validate="updateValidate">
       </mo-select>
       <mo-select
         label="类型" 
@@ -20,7 +22,9 @@
         v-model="selectM" 
         @change="getItems"
         :fill-options="fillOptions" 
-        :fill-params="combParam">
+        :fill-params="combParam"
+        :validate="validate" 
+        @update-validate="updateValidate">
       </mo-select>
     </div>
   </div>
@@ -45,11 +49,29 @@
 <script type="text/babel">
   export default {
     data() {
+      let validate = {
+        required: true,
+        field: 'selectM',
+        validators: [
+          {
+            rule: /\d/g, 
+            msg: '这个是错的'
+          },
+          {
+            validator: (value, callback)=>{
+              callback('外面验证错误');
+              console.log('valid msg', value);
+            }
+          }
+        ]
+      };
+
       return {
         username: '',
         select: '1',
         selectp: '1',
         selectM: '1',
+        validate: validate,
         options: [
           {value: '1', label: '11111'},
           {value: '2', label: '22222'},
@@ -92,6 +114,9 @@
         } else {
           getOptions([]);
         }
+      },
+      updateValidate(field, isInvalid) {
+        console.log('select validate', field, isInvalid);
       }
     }
   };

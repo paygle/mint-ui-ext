@@ -15,8 +15,9 @@
         v-if="value"
         v-model="currentQuery"
         :result="result"
+        :cancel-text="cancelText"
         @item-click="getContent"
-        @cancel-search="cancelSearch" show>
+        @cancel-search="cancelSearch" show show-button>
         <slot :data="result" :get-content="getContent">
           <x-cell 
             v-for="(item, index) in result" 
@@ -77,6 +78,7 @@ export default {
   data() {
     return {
       currentQuery: this.query,
+      cancelText: '关闭',
       result: []
     };
   },
@@ -87,6 +89,11 @@ export default {
     },
 
     currentQuery(n, o) {
+      if (n === '' || !n) {
+        this.cancelText = '关闭';
+      } else {
+        this.cancelText = '删除';
+      }
       this.result = this.filterResult();
     },
 
@@ -147,12 +154,16 @@ export default {
 <style>
   @component-namespace mo {
     @component poplist {
-      width: 100%;
+      width: 96%;
+      height: 98%;
 
       .list-item {
         padding: 5px 10px;
       }
  
     }
+  }
+  .poplist-wrapper .mo-poplist {
+    left: 2%;
   }
 </style>

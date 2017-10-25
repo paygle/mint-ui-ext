@@ -5,20 +5,25 @@
       <slot name="left"></slot>
     </div>
     <div class="mint-cell-wrapper">
-      <div class="mint-cell-title">
-        <slot name="icon">
-          <i v-if="icon" class="mintui" :class="'mintui-' + icon"></i>
-        </slot>
-        <slot name="title">
-          <span class="mint-cell-text" v-text="title"></span>
-          <span v-if="label" class="mint-cell-label" v-text="label"></span>
-        </slot>
+      <div class="mint-cell-content">
+        <div class="mint-cell-title" :class="{'is-required': isRequired}">
+          <slot name="icon">
+            <i v-if="icon" class="mintui" :class="'mintui-' + icon"></i>
+          </slot>
+          <slot name="title">
+            <span class="mint-cell-text" v-text="title"></span>
+            <span v-if="label" class="mint-cell-label" v-text="label"></span>
+          </slot>
+        </div>
+        <div 
+          class="mint-cell-value validate-box" 
+          :class="{ 'is-link' : isLink, 'is-invalid': isInvalid }">
+          <slot>
+            <span v-text="value"></span>
+          </slot>
+        </div>
       </div>
-      <div class="mint-cell-value" :class="{ 'is-link' : isLink }">
-        <slot>
-          <span v-text="value"></span>
-        </slot>
-      </div>
+      <div class="mint-cell-validate" v-if="isInvalid && errMsg"  v-text="errMsg"></div>
     </div>
     <div class="mint-cell-right">
       <slot name="right"></slot>
@@ -61,6 +66,9 @@ export default {
     title: String,
     label: String,
     isLink: Boolean,
+    isInvalid: Boolean,  // 验证无效显示状态
+    isRequired: Boolean,  // 是否必填
+    errMsg: String,      // 验证错误提示内容
     value: {}
   },
 
@@ -118,6 +126,7 @@ export default {
       }
 
       @descendent wrapper {
+        flex-flow: column;
         /* 影响 android 和 火狐浏览器 多出背景线条
         background-image:linear-gradient(180deg, $color-grey, $color-grey 50%, transparent 50%);
         background-size: 120% 1px;
@@ -127,12 +136,31 @@ export default {
         align-items: center;
         box-sizing: border-box;
         display: flex;
-        font-size: 16px;
+        font-size: 14px;
         line-height: 1;
         min-height: inherit;
-        overflow: hidden;
+        overflow: auto;
         padding: 0 10px;
         width: 100%;
+      }
+
+      @descendent content {
+        display: flex;
+        flex: 1;
+        width: 100%;
+        line-height: unset;
+        align-items: center;
+      }
+
+      @descendent validate{
+        display: flex;
+        flex: 1;
+        width: 100%;
+        justify-content: flex-end;
+        flex: 0.4;
+        font-size: 14px;
+        color: red;
+        padding: 3px 0;
       }
 
       @descendent mask {
@@ -165,6 +193,12 @@ export default {
 
       @descendent title {
         flex: 1;
+        line-height: 26px;
+
+        &.is-required::after {
+          content: '*';
+          color: red;
+        }
       }
 
       @descendent value {
@@ -174,6 +208,16 @@ export default {
 
         @when link {
           margin-right: 24px;
+        }
+
+        @when invalid {
+          &.validate-box, .validate-box{
+            background-color: #fff;
+            box-shadow: inset 0px 0px 5px #ff2020;
+            border-radius: 4px;
+            padding: 3px 5px;
+            margin-top: 8px;
+          }
         }
       }
 
