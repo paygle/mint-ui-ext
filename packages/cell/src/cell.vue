@@ -161,6 +161,7 @@ export default {
         font-size: 14px;
         color: red;
         padding: 3px 0;
+        margin-bottom: 5px;
       }
 
       @descendent mask {
@@ -216,7 +217,6 @@ export default {
             box-shadow: inset 0px 0px 5px #ff2020;
             border-radius: 4px;
             padding: 3px 5px;
-            margin-top: 8px;
           }
         }
       }
