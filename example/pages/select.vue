@@ -19,13 +19,15 @@
       <mo-select
         label="类型" 
         placeholder="请输入类型"  
-        v-model="selectM" 
+        v-model="selectM"
         @change="getItems"
         :fill-options="fillOptions" 
         :fill-params="combParam"
+        ref="vsel"
         :validate="validate" 
         @update-validate="updateValidate">
       </mo-select>
+      <mt-button type="primary" @click="submit">提交</mt-button>
     </div>
   </div>
 </template>
@@ -72,6 +74,7 @@
         selectp: '1',
         selectM: '1',
         validate: validate,
+        validStatus: {},
         options: [
           {value: '1', label: '11111'},
           {value: '2', label: '22222'},
@@ -116,7 +119,13 @@
         }
       },
       updateValidate(field, isInvalid) {
+        this.validStatus[field] = isInvalid;
         console.log('select validate', field, isInvalid);
+      },
+      submit() {
+        if (this.$refs.vsel.verifySubmit(this.validStatus)) {
+          alert('验证通过');
+        }
       }
     }
   };

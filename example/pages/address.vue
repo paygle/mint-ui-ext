@@ -9,6 +9,7 @@
       :visible-item-count="5"
       v-model="addr" 
       :data="adrdata"
+      field="addr"
       :validate="validate" 
       @update-validate="updateValidate">
     </mo-address>
@@ -21,9 +22,9 @@
   export default {
 
     data() {
-      let validate = {
+      let validate = [{
         required: true,
-        field: 'email',
+        field: 'addr',
         validators: [
           {
             rule: /\d/g, 
@@ -36,7 +37,7 @@
             }
           }
         ]
-      };
+      }];
 
       return {
         addr: '21-2101-210101',

@@ -171,7 +171,7 @@ export default {
   },
 
   created() {
-    this.initValidators();  // 初始化验证
+    if (this.validate) this.initValidators();  // 初始化验证
   },
 
   mounted() {

@@ -12,7 +12,7 @@ html, body{
 
 /* 字体样式 */
 @font-face {font-family: "mintui";
-  src: url(static/iconfont.6ed7317.ttf)
+  src: url(static/iconfont.4293a2b.ttf)
 }
 
 .mintui, [class*=mintui-] {
@@ -103,6 +103,8 @@ html, body{
 .mintui-document:before { content: "\E64F"; }
 .mintui-delete2:before { content: "\E650"; }
 .mintui-upload:before { content: "\E651"; }
+.mintui-percent:before { content: "\E652"; }
+.mintui-permillage:before { content: "\E653"; }
 /* Cell Component */
 /* Header Component */
 /* Button Component */
@@ -297,6 +299,8 @@ html, body{
       background-position: bottom; */
 }
 .mint-cell-wrapper {
+    -ms-flex-flow: column;
+        flex-flow: column;
     /* 影响 android 和 火狐浏览器 多出背景线条
       background-image:linear-gradient(180deg, $color-grey, $color-grey 50%, transparent 50%);
       background-size: 120% 1px;
@@ -310,12 +314,44 @@ html, body{
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1;
     min-height: inherit;
-    overflow: hidden;
+    overflow: auto;
     padding: 0 10px;
     width: 100%;
+}
+.mint-cell-content {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    width: 100%;
+    line-height: unset;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+.mint-cell-validate {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+    width: 100%;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+    -webkit-box-flex: 0.4;
+        -ms-flex: 0.4;
+            flex: 0.4;
+    font-size: 14px;
+    color: red;
+    padding: 3px 0;
+    margin-bottom: 5px;
 }
 .mint-cell-mask {}
 .mint-cell-mask::after {
@@ -344,6 +380,11 @@ html, body{
     -webkit-box-flex: 1;
         -ms-flex: 1;
             flex: 1;
+    line-height: 26px;
+}
+.mint-cell-title.is-required::after {
+    content: '*';
+    color: red;
 }
 .mint-cell-value {
     color: #888;
@@ -353,6 +394,12 @@ html, body{
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center;
+}
+.mint-cell-value.is-invalid.validate-box, .mint-cell-value.is-invalid .validate-box {
+    background-color: #fff;
+    box-shadow: inset 0px 0px 5px #ff2020;
+    border-radius: 4px;
+    padding: 3px 5px;
 }
 .mint-cell-value.is-link {
     margin-right: 24px;
@@ -2450,10 +2497,14 @@ position: absolute;
 }
 
 .mo-poplist {
-    width: 100%;
+  width: 96%;
+  height: 98%;
 }
 .mo-poplist .list-item {
-    padding: 5px 10px;
+  padding: 5px 10px;
+}
+.poplist-wrapper .mo-poplist {
+  left: 2%;
 }
 .mt-upload-list--picture-card .mt-upload-list-item-actions:after {
     display: inline-block;

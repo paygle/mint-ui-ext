@@ -21,8 +21,7 @@ export default {
   methods: {
     
     initValidators() { // 获取验证对象
-
-      if (Array.isArray(this.validates) && this.field) {
+      if (Array.isArray(this.validate) && this.field) {
         let validObj = null, field = this.field;
         this.validate.forEach((item)=>{
           if (field === item.field) { validObj = item; }
@@ -36,6 +35,22 @@ export default {
         this.validators = this.validate;
       }
     },
+    // 验证是否通过
+    verifySubmit(data) {
+      if (typeof data === 'object') {
+        for (let prop in data) {
+          if (
+              data.hasOwnProperty(prop) && 
+              typeof data[prop] === 'boolean' && 
+              data[prop]
+            ) {
+            return false;
+          }
+        }
+        return true;
+      }
+      return true;
+    },
 
     // 自定义验证回调
     customValidate(msg) {
@@ -46,8 +61,10 @@ export default {
     // 字段验证
     validateFields() {
       /* 验证规则数据格式
+      [
         {
-          required: false,     // 仅当前结点初始*号有效
+          required: false,     // 仅当前结点有效
+          type: 'number',      // 仅当前结点有效,可选：number, date, email, phone, ident
           field: 'name',       // 当前使用 validators 时，仅此字段有效
           rule:/\d/ig, 
           msg:'这个是错的', 
@@ -62,6 +79,7 @@ export default {
             }
           ]
         }
+      ]
       */
 
       function runValidator(vd, field, value) {
@@ -80,6 +98,7 @@ export default {
           vd.validator.call(null, value, this.customValidate);
         }
       }
+
       // 多规则处理
       this.$nextTick(()=>{
         let valids = this.validators, that = this;
@@ -159,11 +178,11 @@ export default {
         }
 
         // 其他验证
-        if (typeof valids === 'object' && Array.isArray(valids.validators)) {
+        if (valids && Array.isArray(valids.validators)) {
           valids.validators.forEach((item)=>{
             if (this.goValid) runValidator.call(that, item, valids.field, value);
           });
-        } else {
+        } else if (valids) {
           runValidator.call(that, valids, valids.field, value);
         }
       });

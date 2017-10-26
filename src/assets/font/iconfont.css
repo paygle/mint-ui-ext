@@ -103,3 +103,5 @@ html,body{
 .mintui-document:before { content: "\E64F"; }
 .mintui-delete2:before { content: "\E650"; }
 .mintui-upload:before { content: "\E651"; }
+.mintui-percent:before { content: "\E652"; }
+.mintui-permillage:before { content: "\E653"; }
