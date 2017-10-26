@@ -42,6 +42,7 @@ import CircleStep from '../packages/circle-step';
 import Address from '../packages/address';
 import Poplist from '../packages/poplist';
 import Upload from '../packages/upload';
+import Digital from '../packages/digital';
 
 const version = '2.2.9';
 const install = function(Vue, config = {}) {
@@ -83,6 +84,7 @@ const install = function(Vue, config = {}) {
   Vue.component(Address.name, Address);
   Vue.component(Poplist.name, Poplist);
   Vue.component(Upload.name, Upload);
+  Vue.component(Digital.name, Digital);
   Vue.use(InfiniteScroll);
   Vue.use(Lazyload, merge({
     loading: require('./assets/loading-spin.svg'),
@@ -142,5 +144,6 @@ module.exports = {
   CircleStep,
   Address,
   Poplist,
-  Upload
+  Upload,
+  Digital
 };

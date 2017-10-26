@@ -64,18 +64,16 @@ export default {
       [
         {
           required: false,     // 仅当前结点有效
-          type: 'number',      // 仅当前结点有效,可选：number, date, email, phone, ident
+          type: 'number',      // 仅当前结点有效,可选：number, date, email, phone, ident（身份证）
           field: 'name',       // 当前使用 validators 时，仅此字段有效
-          rule:/\d/ig, 
-          msg:'这个是错的', 
-          validator: function(value,callback){ callback(msg);}
+          // rule:/\d/ig, 
+          // msg:'这个是错的', 
+          // validator: function(value,callback){ callback(msg);}    // 此验证单独使用
           validators: [
             {
-              required: false, 
-              field: 'name', 
-              rule:/\d/ig, 
-              msg:'这个是错的', 
-              validator: function(value,callback){ callback(msg);}
+              rule:/\d/ig,        // 自定义规则验证
+              msg:'这个是错的',    // 自定义规则消息
+              validator: function(value,callback){ callback(msg);}   // 此验证单独使用
             }
           ]
         }
@@ -118,7 +116,7 @@ export default {
           if (!this.goValid) return;
           this.currentField = this.field || valids.field;
           this.validateEmit(function() {
-            return value !== null && value !== '' && !isNaN(Number(value));
+            return value === null || value === '' || isNaN(Number(value));
           }, '本项只能填数字');
 
         // 日期验证  

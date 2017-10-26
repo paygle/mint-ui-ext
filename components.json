@@ -40,5 +40,6 @@
   "circle-step": "./packages/circle-step/index.js",
   "address": "./packages/address/index.js",
   "poplist": "./packages/poplist/index.js",
-  "upload": "./packages/upload/index.js"
+  "upload": "./packages/upload/index.js",
+  "digital": "./packages/digital/index.js"
 }
