@@ -29,6 +29,9 @@
     <span class="mo-digital-state" v-if="state" :class="['is-' + state]">
       <i class="mintui" :class="['mintui-field-' + state]"></i>
     </span>
+    <span class="mo-digital-rate" v-if="!hideRateIcon && type !== 'number'">
+      <i class="mintui" :class="['mintui-' + type]"></i>
+    </span>
     <div class="mo-digital-other">
       <slot></slot>
     </div>
@@ -39,6 +42,7 @@
 import XCell from 'mint-ui/packages/cell/index.js';
 import Clickoutside from 'mint-ui/src/utils/clickoutside';
 import validator from 'mint-ui/src/mixins/validator';
+import math from 'mint-ui/src/utils/math';
 if (process.env.NODE_ENV === 'component') {
   require('mint-ui/packages/cell/style.css');
 }
@@ -77,10 +81,11 @@ export default {
 
   props: {
     value: 0,
-    type: {
+    type: {              // 支持类型： number/percent/permillage
       type: String,
       default: 'number'
     },
+    hideRateIcon: Boolean,  // 是否隐藏比率图标
     precision: Number,
     isEmpty: Boolean,    // 默认是否可以为空
     max: Number,                // 最大值
@@ -126,35 +131,40 @@ export default {
   watch: {
     value(val, old) {
       this.goValid = true;
-      // this.decodeValue(val);
       this.validateFields();  // 监控验证
-      // 是否允许为空
-      if (this.hasEmpty(val)) {
-        this.$emit('input', 0);
-      } else {
-        if (val !== old) {
-          if (this.formated || this.precision) {
-            this.formatValue = this.getFormatVal(val);;
-          } else {
-            this.currentValue = val;
-          }
-        }
-        this.$nextTick(() => {
-          if (!isNaN(this.max) && typeof this.max !== 'undefined' && this.value > this.max) {
-            this.$emit('input', this.max);
-          }
 
-          if (!isNaN(this.min) && typeof this.min !== 'undefined' && this.value < this.min) {
-            this.$emit('input', this.min);
-          }
-        });
+      if (val === 0 || val === '0') {
+        this.currentValue = 0;
+        this.formatValue = 0;
+
+      } else if (val !== old) {
+        let value;
+        if (this.type === 'percent' || this.type === 'permillage') {
+          value = this.getRateValue(val);
+          this.formatValue = (!isNaN(value) && Number(value) === 0) ? '' : value;
+        } else if (this.formated || this.precision) {
+          value = this.getFormatVal(val);
+          this.formatValue = (!isNaN(value) && Number(value) === 0) ? '' : value;
+        } else {
+          this.currentValue = val;
+        }
       }
+
+      this.$nextTick(() => {
+        if (!isNaN(this.max) && typeof this.max !== 'undefined' && this.value > this.max) {
+          this.$emit('input', this.max);
+        }
+
+        if (!isNaN(this.min) && typeof this.min !== 'undefined' && this.value < this.min) {
+          this.$emit('input', this.min);
+        }
+      });
     },
 
     currentValue: {
       immediate: true,
       handler(val) {
-        if (!(this.formated || this.precision)) {
+        if (!(this.formated || this.precision) && this.type === 'number') {
           this.displayValue = val;
         }
       }
@@ -163,9 +173,7 @@ export default {
     formatValue: {
       immediate: true,
       handler(val) {
-        if (this.formated || this.precision) {
-          this.displayValue = val;
-        }
+        this.displayValue = val;
       }
     },
 
@@ -184,7 +192,7 @@ export default {
   },
 
   methods: {
-    hasEmpty(val) {
+    notEmpty(val) {
       if (!this.isEmpty && (typeof val === 'undefined' || val === '' || /^\s+$/g.test(val))) {
         return true;
       }
@@ -192,7 +200,7 @@ export default {
     },
 
     // 从 12345678.12 -> 12,345,678.12
-    getFormatVal(value) {
+    getFormatVal(value, type) {
       value = typeof value === 'undefined' ? String(this.value)
         : String(value).replace(new RegExp(this.splitMark, 'g'), '');
 
@@ -234,20 +242,47 @@ export default {
           return minus + integerArray.reverse().join(this.splitMark) + '.' + decimal;
         }
         return minus + integerArray.reverse().join(this.splitMark);
-      } else if (this.hasEmpty(value)) {
-        this.$emit('input', 0);
       }
       return value;
     },
 
     setPrecision(value, bit) {
-      let numStr, num = null, mbit = bit || this.precision;
+      let numStr, num = null, mbit = bit || this.precision || 0;
       numStr = String(value).split('.');
-      if (numStr.length === 2 && String(numStr[1]).length > mbit) {
-        numStr[1] = String(numStr[1]).substr(0, mbit);
+
+      if (numStr.length === 2) {
+        if (numStr[1].length > mbit) {
+          numStr[1] = String(numStr[1]).substr(0, mbit);
+        } else if (numStr[1].length < mbit) {
+          for (let i = numStr[1].length; i < mbit; i++) numStr[1] += '0';
+        }
+        num = numStr.join('.');
+      } else if (mbit > 0) {
+        numStr[1] = '';
+        for (let i = 0; i < mbit; i++) numStr[1] += '0';
         num = numStr.join('.');
       }
-      return (num === null || isNaN(num)) ? value : Number(num);
+      return (num === null || isNaN(num)) ? value : num;
+    },
+
+    getSizeNumber(val) {
+      if (val === '') {
+        return '';
+      } else if (this.type === 'percent') {
+        return math.div(val, 100);
+      } else if (this.type === 'permillage') {
+        return math.div(val, 1000);
+      }
+      return val;
+    },
+
+    getRateValue(value) {
+      if (this.type === 'percent') {
+        return this.setPrecision(math.multi(value, 100));
+      } else if (this.type === 'permillage') {
+        return this.setPrecision(math.multi(value, 1000));
+      }
+      return value;
     },
 
     // 从 12,345,678.12 -> 12345678.12
@@ -267,7 +302,7 @@ export default {
       }
 
       // 是否允许为空
-      if (this.hasEmpty(value)) {
+      if (this.notEmpty(value)) {
         return 0;
       } else {
         return value;
@@ -279,13 +314,21 @@ export default {
     },
 
     blurChange(e) {
-      let value = String(this.getValue(this.$refs.input.value));
-      value = (!isNaN(value) && value !== '') ? Number(value) : '';
+      let value;
 
-      if (value === 0) {
+      if (this.type === 'percent' || this.type === 'permillage') {
+        value = this.getSizeNumber(this.$refs.input.value);
+      } else if (this.formated || this.precision) {
+        value = String(this.getValue(this.$refs.input.value));
+        value = (!isNaN(value) && value !== '') ? Number(value) : '';
+      }
+
+      // 是否允许为空
+      if (this.notEmpty(value) || value === 0) {
         this.displayValue = 0;
         this.formatValue = 0;
         this.$refs.input.value = 0;
+        value = 0;
       }
       this.$emit('input', value);
       this.$emit('change', value);
@@ -293,16 +336,15 @@ export default {
 
     handleClear() {
       if (this.disabled || this.readonly) return;
-      if (this.formated || this.precision) {
-        this.$emit('input', 0);
-      } else {
-        this.$emit('input', '');
-      }
+      this.$refs.input.focus();
+      this.$emit('input', '');
     },
     // 设置显示值
     setDisplayValue(val) {
       val = val || this.value;
-      if (this.formated || this.precision) {
+      if (this.type === 'percent' || this.type === 'permillage') {
+        this.formatValue = this.getRateValue(val);
+      } else if (this.formated || this.precision) {
         this.formatValue = this.getFormatVal(val);
       } else {
         this.currentValue = val;

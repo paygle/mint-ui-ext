@@ -44,7 +44,7 @@ import Poplist from '../packages/poplist';
 import Upload from '../packages/upload';
 import Digital from '../packages/digital';
 
-const version = '2.2.9';
+const version = '2.2.10';
 const install = function(Vue, config = {}) {
   if (install.installed) return;
 
